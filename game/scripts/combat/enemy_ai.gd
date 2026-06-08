@@ -77,6 +77,8 @@ func _shoot(direction: Vector2) -> void:
 	get_tree().current_scene.get_node("projectiles").add_child(proj)
 
 func take_damage(amount: int) -> void:
+	if current_hp <= 0:
+		return
 	current_hp -= amount
 	var flash_tween: Tween = create_tween()
 	flash_tween.tween_property($visual, "modulate", Color.RED, 0.1)

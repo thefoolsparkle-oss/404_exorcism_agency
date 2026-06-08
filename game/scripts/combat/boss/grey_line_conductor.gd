@@ -129,6 +129,8 @@ func _broadcast_static() -> void:
 	)
 
 func take_damage(amount: int) -> void:
+	if current_hp <= 0:
+		return
 	current_hp -= amount
 	hp_bar.value = current_hp
 	EventBus.boss_health_changed.emit(current_hp, max_hp)
