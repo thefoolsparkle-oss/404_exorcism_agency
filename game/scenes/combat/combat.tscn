@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/combat/player.tscn" id="1_player_scene"]
 [ext_resource type="Script" path="res://scripts/combat/combat.gd" id="2_combat"]
 [ext_resource type="Script" path="res://scripts/combat/spawn_director.gd" id="3_spawn_dir"]
 [ext_resource type="Script" path="res://scripts/combat/objective_tracker.gd" id="4_obj_tracker"]
-[ext_resource type="PackedScene" path="res://scenes/ui/level_up_panel.tscn" id="5_level_up_panel"]
-[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
-[ext_resource type="PackedScene" path="res://scenes/ui/result_panel.tscn" id="7_result_panel"]
+[ext_resource type="Script" path="res://scripts/combat/objective_spawner.gd" id="5_obj_spawner"]
+[ext_resource type="PackedScene" path="res://scenes/ui/level_up_panel.tscn" id="6_level_up_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="7_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/result_panel.tscn" id="8_result_panel"]
 
 [node name="Combat" type="Node2D"]
 script = ExtResource("2_combat")
@@ -23,6 +24,7 @@ size = Vector2(3840, 2160)
 position = Vector2(1920, 1080)
 
 [node name="enemies" type="Node2D" parent="entities"]
+[node name="interactive_objects" type="Node2D" parent="."]
 [node name="projectiles" type="Node2D" parent="."]
 [node name="experience_orbs" type="Node2D" parent="."]
 
@@ -31,6 +33,9 @@ script = ExtResource("3_spawn_dir")
 
 [node name="objective_tracker" type="Node" parent="."]
 script = ExtResource("4_obj_tracker")
+
+[node name="objective_spawner" type="Node2D" parent="."]
+script = ExtResource("5_obj_spawner")
 
 [node name="camera" type="Camera2D" parent="."]
 position = Vector2(1920, 1080)
@@ -45,6 +50,6 @@ zoom = Vector2(0.8, 0.8)
 
 [node name="ui_layer" type="CanvasLayer" parent="."]
 
-[node name="hud" parent="ui_layer" instance=ExtResource("6_hud")]
-[node name="level_up_panel" parent="ui_layer" instance=ExtResource("5_level_up_panel")]
-[node name="result_panel" parent="ui_layer" instance=ExtResource("7_result_panel")]
+[node name="hud" parent="ui_layer" instance=ExtResource("7_hud")]
+[node name="level_up_panel" parent="ui_layer" instance=ExtResource("6_level_up_panel")]
+[node name="result_panel" parent="ui_layer" instance=ExtResource("8_result_panel")]

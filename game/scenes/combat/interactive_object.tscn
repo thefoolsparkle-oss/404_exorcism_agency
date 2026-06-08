@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/interactive_object.gd" id="1_interactive"]
+
+[sub_resource type="CircleShape2D" id="Circle_interact"]
+radius = 40.0
+
+[node name="InteractiveObject" type="Area2D"]
+script = ExtResource("1_interactive")
+
+[node name="visual" type="ColorRect" parent="."]
+color = Color(0.9, 0.8, 0.2, 0.8)
+size = Vector2(24, 24)
+position = Vector2(-12, -12)
+
+[node name="label" type="Label" parent="."]
+position = Vector2(-40, -40)
+text = "物品"
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+size = Vector2(80, 20)
+
+[node name="progress_bar" type="ProgressBar" parent="."]
+position = Vector2(-30, 30)
+size = Vector2(60, 10)
+visible = false
+
+[node name="prompt" type="Label" parent="."]
+position = Vector2(-40, -20)
+text = ""
+theme_override_font_sizes/font_size = 11
+horizontal_alignment = 1
+size = Vector2(80, 20)
+theme_override_colors/font_color = Color(0.3, 0.9, 0.3, 1)
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+shape = SubResource("Circle_interact")
