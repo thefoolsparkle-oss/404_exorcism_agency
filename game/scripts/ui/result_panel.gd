@@ -10,6 +10,7 @@ var kill_count: int = 0
 var final_level: int = 1
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	restart_btn.pressed.connect(_on_restart_pressed)
 	quit_btn.pressed.connect(_on_quit_pressed)
@@ -48,8 +49,10 @@ func _on_combat_ended(victory: bool) -> void:
 	visible = true
 
 func _on_restart_pressed() -> void:
-	EventBus.request_restart.emit()
+	get_tree().paused = false
+	get_tree().reload_current_scene()
 
 func _on_quit_pressed() -> void:
 	SaveManager.save()
-	EventBus.request_main_menu.emit()
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://scenes/office/office_main.tscn")
