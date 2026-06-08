@@ -12,9 +12,14 @@ func _ready() -> void:
 	EventBus.experience_dropped.connect(_on_experience_dropped)
 	EventBus.combat_started.emit()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.keycode == KEY_ESCAPE and event.pressed:
-		_show_pause_menu()
+var esc_was_pressed: bool = false
+
+func _process(_delta: float) -> void:
+	var esc_now: bool = Input.is_key_pressed(KEY_ESCAPE)
+	if esc_now and not esc_was_pressed:
+		if GameManager.current_state == GameManager.GameState.COMBAT_ACTIVE:
+			_show_pause_menu()
+	esc_was_pressed = esc_now
 
 func _show_pause_menu() -> void:
 	if GameManager.current_state != GameManager.GameState.COMBAT_ACTIVE:
