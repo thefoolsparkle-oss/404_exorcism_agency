@@ -95,7 +95,7 @@ func _ticket_punch() -> void:
 	)
 
 func _summon_passengers() -> void:
-	var count: int = 1 + phase
+	var count: int = 1
 	for i in range(count):
 		var enemy: CharacterBody2D = enemy_scene.instantiate()
 		enemy.enemy_id = "empty_seat_passenger"

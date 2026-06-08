@@ -9,7 +9,7 @@
       {"type": "disable", "target": "broadcast_device", "count": 2, "text": "关闭异常广播器"},
       {"type": "defeat_boss", "target": "grey_line_conductor", "text": "击败灰线列车员"}
     ],
-    "boss_id": "grey_line_conductor", "boss_stats": {"max_hp": 350, "move_speed": 80, "contact_damage": 20},
+    "boss_id": "grey_line_conductor", "boss_stats": {"max_hp": 250, "move_speed": 60, "contact_damage": 15},
     "enemy_pool": ["empty_seat_passenger", "reverse_walker"],
     "spawn_interval_min": 3.5, "spawn_interval_max": 2.0, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
     "reward_items": ["broken_monthly_pass", "low_frequency_broadcast_module"],
@@ -24,7 +24,7 @@
       {"type": "collect", "target": "station_key", "count": 3, "text": "收集站台钥匙"},
       {"type": "defeat_boss", "target": "station_shadow", "text": "击败站台暗影"}
     ],
-    "boss_id": "station_shadow", "boss_stats": {"max_hp": 400, "move_speed": 85, "contact_damage": 22},
+    "boss_id": "station_shadow", "boss_stats": {"max_hp": 250, "move_speed": 60, "contact_damage": 15},
     "enemy_pool": ["empty_seat_passenger", "shadow_fragment", "reverse_walker"],
     "spawn_interval_min": 3.0, "spawn_interval_max": 1.8, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
     "reward_items": ["rusted_station_key", "seawater_sample"],
