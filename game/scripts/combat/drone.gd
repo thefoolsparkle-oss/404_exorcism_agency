@@ -37,6 +37,8 @@ func _physics_process(delta: float) -> void:
 
 func _find_nearest_enemy() -> Node2D:
 	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
+	var bosses: Array[Node] = get_tree().get_nodes_in_group("boss")
+	enemies.append_array(bosses)
 	var nearest: Node2D = null
 	var nearest_dist: float = attack_range
 	for enemy in enemies:

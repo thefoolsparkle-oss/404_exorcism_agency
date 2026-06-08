@@ -78,6 +78,8 @@ func _process(delta: float) -> void:
 
 func _trigger_chain_lightning(data: Dictionary) -> void:
 	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
+	var bosses: Array[Node] = get_tree().get_nodes_in_group("boss")
+	enemies.append_array(bosses)
 	var sort_fn = func(a, b):
 		return player.global_position.distance_to(a.global_position) < player.global_position.distance_to(b.global_position)
 	enemies.sort_custom(sort_fn)
@@ -115,6 +117,8 @@ func _draw_chain_vfx(origin: Vector2, targets: Array) -> void:
 
 func _trigger_thunder_ring(data: Dictionary) -> void:
 	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
+	var bosses: Array[Node] = get_tree().get_nodes_in_group("boss")
+	enemies.append_array(bosses)
 	for enemy in enemies:
 		if player.global_position.distance_to(enemy.global_position) <= data.radius:
 			if enemy.has_method("take_damage"):
