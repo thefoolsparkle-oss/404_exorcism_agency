@@ -4,7 +4,7 @@ var interactive_scene: PackedScene = preload("res://scenes/combat/interactive_ob
 var current_case: Dictionary = {}
 var spawn_queue: Array = []
 var spawn_timer: float = 0.0
-var spawn_interval: float = 8.0
+var spawn_interval: float = 5.0
 var enabled: bool = false
 
 @onready var spawn_parent: Node2D = $"../interactive_objects"

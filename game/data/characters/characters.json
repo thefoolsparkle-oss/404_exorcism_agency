@@ -1,30 +1,14 @@
 {
   "lin_jin": {
-    "id": "lin_jin",
-    "name_cn": "林锦",
-    "name_en": "Lin Jin",
-    "title": "符咒黑客",
-    "description": "将传统符咒改写为可执行脚本，用电子符纸入侵异常。",
-    "max_hp": 90,
-    "move_speed": 210.0,
-    "base_damage": 12,
-    "attack_interval": 0.45,
-    "attack_range": 520.0,
-    "projectile_speed": 420.0,
-    "color": "dodgerblue"
+    "id": "lin_jin", "name_cn": "林锦", "name_en": "Lin Jin",
+    "title": "符咒黑客", "description": "将传统符咒改写为可执行脚本，用电子符纸入侵异常。",
+    "max_hp": 100, "move_speed": 220.0, "base_damage": 14,
+    "attack_interval": 0.4, "attack_range": 540.0, "projectile_speed": 440.0, "color": "dodgerblue"
   },
   "xu_zhaye": {
-    "id": "xu_zhaye",
-    "name_cn": "徐招夜",
-    "name_en": "Xu Zhaoye",
-    "title": "民俗调查员",
-    "description": "民俗学研究者，以纸人、铜钱、八卦镜等传统法器应对异常。召唤物更多，生存能力更强。",
-    "max_hp": 120,
-    "move_speed": 180.0,
-    "base_damage": 8,
-    "attack_interval": 0.6,
-    "attack_range": 450.0,
-    "projectile_speed": 350.0,
-    "color": "darkgoldenrod"
+    "id": "xu_zhaye", "name_cn": "徐招夜", "name_en": "Xu Zhaoye",
+    "title": "民俗调查员", "description": "民俗学研究者，以纸人、铜钱、八卦镜等传统法器应对异常。召唤物更多，生存能力更强。",
+    "max_hp": 140, "move_speed": 190.0, "base_damage": 10,
+    "attack_interval": 0.55, "attack_range": 460.0, "projectile_speed": 380.0, "color": "darkgoldenrod"
   }
 }
