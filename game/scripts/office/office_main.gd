@@ -9,16 +9,48 @@ var characters_data: Dictionary = {}
 @onready var resources_label: Label = $CanvasLayer/Margin/MainVBox/ResourcesLabel
 @onready var briefing: CanvasLayer = $CanvasLayer/CaseBriefing
 @onready var case_list_ui: Control = $CanvasLayer/CaseListUI
+@onready var narrative: CanvasLayer = $CanvasLayer/NarrativeScreen
 
 func _ready() -> void:
 	characters_data = DataLoader.load_json("res://data/characters/characters.json")
 	briefing.case_confirmed.connect(_on_case_confirmed)
 	briefing.case_cancelled.connect(_on_case_cancelled)
+	narrative.finished.connect(_on_narrative_finished)
 	_refresh_ui()
 	terminal_button.pressed.connect(_open_case_list)
 	archive_button.pressed.connect(_open_archive)
 	char_select.item_selected.connect(_on_char_selected)
 	_populate_characters()
+	
+	if not SaveManager.data.prologue_seen:
+		_show_prologue()
+	elif _all_grey_line_done() and not SaveManager.data.ending_seen:
+		_show_ending()
+
+func _show_prologue() -> void:
+	var narrative_data: Dictionary = DataLoader.load_json("res://data/narrative/grey_line.json")
+	var prologue: Dictionary = narrative_data.get("prologue", {})
+	narrative.show_narrative(prologue.get("title", ""), prologue.get("subtitle", ""), prologue.get("lines", []))
+
+func _show_ending() -> void:
+	var narrative_data: Dictionary = DataLoader.load_json("res://data/narrative/grey_line.json")
+	var endings: Dictionary = narrative_data.get("case_complete", {})
+	var ending: Dictionary = endings.get("GLM-005", {})
+	narrative.show_narrative(ending.get("title", ""), "", ending.get("lines", []))
+
+func _on_narrative_finished() -> void:
+	if not SaveManager.data.prologue_seen:
+		SaveManager.data.prologue_seen = true
+	elif _all_grey_line_done() and not SaveManager.data.ending_seen:
+		SaveManager.data.ending_seen = true
+	SaveManager.save()
+
+func _all_grey_line_done() -> bool:
+	for i in range(1, 6):
+		var cid: String = "GLM-%03d" % i
+		if cid not in SaveManager.data.completed_cases:
+			return false
+	return true
 
 func _refresh_ui() -> void:
 	var res: Dictionary = SaveManager.data.resources

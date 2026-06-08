@@ -32,7 +32,9 @@ func _save_default() -> void:
 		"completed_cases": [],
 		"unlocked_characters": ["lin_jin", "xu_zhaye", "bai_zhi"],
 		"selected_character": "lin_jin",
-		"permanent_upgrades": {}
+		"permanent_upgrades": {},
+		"prologue_seen": false,
+		"ending_seen": false
 	}
 
 func save() -> void:

@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/office/office_main.gd" id="1_office"]
 [ext_resource type="Script" path="res://scripts/ui/office_case_list.gd" id="2_case_list"]
 [ext_resource type="PackedScene" path="res://scenes/ui/case_briefing.tscn" id="3_briefing"]
+[ext_resource type="PackedScene" path="res://scenes/ui/narrative_screen.tscn" id="4_narrative"]
 
 [node name="Office" type="Node2D"]
 script = ExtResource("1_office")
@@ -144,6 +145,8 @@ layout_mode = 2
 text = "关闭"
 
 [node name="CaseBriefing" parent="CanvasLayer" instance=ExtResource("3_briefing")]
+
+[node name="NarrativeScreen" parent="CanvasLayer" instance=ExtResource("4_narrative")]
 
 [connection signal="pressed" from="CanvasLayer/Margin/MainVBox/QuitButton" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/CaseListUI/Panel/VBoxContainer/CloseBtn" to="CanvasLayer/CaseListUI" method="_on_close"]
