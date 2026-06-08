@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="PackedScene" path="res://scenes/combat/player.tscn" id="1_player_scene"]
 [ext_resource type="Script" path="res://scripts/combat/combat.gd" id="2_combat"]
 [ext_resource type="Script" path="res://scripts/combat/spawn_director.gd" id="3_spawn_dir"]
 [ext_resource type="PackedScene" path="res://scenes/ui/level_up_panel.tscn" id="4_level_up_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="5_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/result_panel.tscn" id="6_result_panel"]
 
 [node name="Combat" type="Node2D"]
 script = ExtResource("2_combat")
@@ -43,4 +45,8 @@ zoom = Vector2(0.8, 0.8)
 
 [node name="ui_layer" type="CanvasLayer" parent="."]
 
+[node name="hud" parent="ui_layer" instance=ExtResource("5_hud")]
+
 [node name="level_up_panel" parent="ui_layer" instance=ExtResource("4_level_up_panel")]
+
+[node name="result_panel" parent="ui_layer" instance=ExtResource("6_result_panel")]
