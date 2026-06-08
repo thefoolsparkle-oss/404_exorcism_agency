@@ -38,10 +38,9 @@ func _on_combat_started() -> void:
 	_refresh_objectives()
 
 func _process(_delta: float) -> void:
-	if GameManager.current_state == GameManager.GameState.COMBAT_ACTIVE:
-		var spawn_dir = get_tree().current_scene.get_node_or_null("spawn_director")
-		if spawn_dir:
-			timer_label.text = "%.0fs" % spawn_dir.game_timer
+	var spawn_dir = get_tree().current_scene.get_node_or_null("spawn_director")
+	if spawn_dir:
+		timer_label.text = "%.0fs" % spawn_dir.game_timer
 
 	var player = get_tree().current_scene.get_node_or_null("entities/player")
 	if player:

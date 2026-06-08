@@ -18,6 +18,9 @@ func _ready() -> void:
 	EventBus.request_main_menu.connect(_on_request_main_menu)
 	EventBus.player_died.connect(_on_player_died)
 	EventBus.boss_defeated.connect(_on_boss_defeated)
+	EventBus.combat_started.connect(func():
+		change_state(GameState.COMBAT_ACTIVE)
+	)
 
 func change_state(new_state: GameState) -> void:
 	current_state = new_state
@@ -44,6 +47,7 @@ func _on_request_restart() -> void:
 	get_tree().reload_current_scene()
 
 func _on_request_main_menu() -> void:
+	change_state(GameState.MAIN_MENU)
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/office/office_main.tscn")
 
