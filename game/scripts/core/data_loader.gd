@@ -1,3 +1,4 @@
+class_name DataLoader
 extends Node
 
 static func load_json(path: String) -> Dictionary:
