@@ -7,7 +7,7 @@ var characters_data: Dictionary = {}
 @onready var char_select: OptionButton = $CanvasLayer/TerminalPanel/char_select
 @onready var resources_label: Label = $CanvasLayer/ResourcesLabel
 @onready var briefing: CanvasLayer = $CanvasLayer/CaseBriefing
-@onready var case_list_ui: Control = $CanvasLayer/CaseListUI
+@onready var case_list_ui: Node2D = $CanvasLayer/CaseListUI
 
 func _ready() -> void:
 	characters_data = DataLoader.load_json("res://data/characters/characters.json")
