@@ -13,6 +13,7 @@ var invincible_timer: float = 0.0
 func _ready() -> void:
 	current_hp = max_hp
 	EventBus.player_health_changed.emit(current_hp, max_hp)
+	$hitbox.body_entered.connect(_on_hitbox_body_entered)
 
 func _physics_process(delta: float) -> void:
 	if invincible_timer > 0:
@@ -27,6 +28,10 @@ func _physics_process(delta: float) -> void:
 
 	global_position.x = clamp(global_position.x, 50, 3790)
 	global_position.y = clamp(global_position.y, 50, 2110)
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemy") and body.get("contact_damage"):
+		take_damage(body.damage)
 
 func take_damage(amount: int) -> void:
 	if invincible:

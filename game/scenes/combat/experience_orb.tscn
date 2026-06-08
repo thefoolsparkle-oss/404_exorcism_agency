@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/experience_orb.gd" id="1_xp_orb"]
+
+[sub_resource type="CircleShape2D" id="Circle_pickup"]
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id="Circle_magnet"]
+radius = 80.0
+
+[node name="ExperienceOrb" type="Area2D"]
+script = ExtResource("1_xp_orb")
+
+[node name="visual" type="ColorRect" parent="."]
+color = Color(0.2, 0.8, 0.3, 1)
+size = Vector2(12, 12)
+position = Vector2(-6, -6)
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+shape = SubResource("Circle_pickup")
+
+[node name="magnet_area" type="Area2D" parent="."]
+
+[node name="magnet_collision" type="CollisionShape2D" parent="magnet_area"]
+shape = SubResource("Circle_magnet")
