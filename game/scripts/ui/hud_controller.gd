@@ -1,7 +1,7 @@
 extends CanvasLayer
 
+@onready var hp_label: Label = $hp_panel/vbox_hp/hp_label
 @onready var hp_bar: ProgressBar = $hp_panel/vbox_hp/hp_bar
-@onready var hp_text: Label = $hp_panel/vbox_hp/hp_text
 @onready var xp_bar: ProgressBar = $xp_panel/vbox_xp/xp_bar
 @onready var xp_text: Label = $xp_panel/vbox_xp/xp_text
 @onready var level_label: Label = $xp_panel/vbox_xp/level_label
@@ -24,9 +24,7 @@ func _ready() -> void:
 	var tracker = get_tree().current_scene.get_node_or_null("objective_tracker")
 	if tracker:
 		tracker.objective_updated.connect(_on_objective_updated)
-		_refresh_objectives()
-	else:
-		objectives_label.visible = false
+	_refresh_objectives()
 
 	var player = get_tree().current_scene.get_node_or_null("entities/player")
 	if player:
@@ -53,11 +51,12 @@ func _process(_delta: float) -> void:
 func _on_player_health_changed(current: int, max_val: int) -> void:
 	hp_bar.max_value = max_val
 	hp_bar.value = current
-	hp_text.text = "%d/%d" % [current, max_val]
+	var pct: int = int(float(current) / float(max_val) * 100)
+	hp_label.text = "HP %d/%d (%d%%)" % [current, max_val, pct]
 	if float(current) / float(max_val) < 0.3:
-		hp_text.add_theme_color_override("font_color", Color.RED)
+		hp_label.add_theme_color_override("font_color", Color.RED)
 	else:
-		hp_text.add_theme_color_override("font_color", Color.WHITE)
+		hp_label.add_theme_color_override("font_color", Color.WHITE)
 
 func _on_player_level_up(new_level: int) -> void:
 	level_label.text = "Lv.%d" % new_level
@@ -77,8 +76,10 @@ func _on_objective_updated(_index: int, _current: int, _target: int) -> void:
 
 func _refresh_objectives() -> void:
 	var tracker = get_tree().current_scene.get_node_or_null("objective_tracker")
-	if not tracker:
+	if not tracker or tracker.objectives.is_empty():
+		objectives_label.visible = false
 		return
+	objectives_label.visible = true
 	var lines: PackedStringArray = []
 	for i in range(tracker.objectives.size()):
 		lines.append(tracker.get_objective_text(i))

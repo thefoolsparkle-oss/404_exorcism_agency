@@ -13,7 +13,7 @@ func _ready() -> void:
 	EventBus.combat_started.emit()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if event is InputEventKey and event.keycode == KEY_ESCAPE and event.pressed:
 		_show_pause_menu()
 
 func _show_pause_menu() -> void:
