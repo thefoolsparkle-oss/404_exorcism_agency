@@ -14,16 +14,34 @@ var boss_spawned: bool = false
 var enabled: bool = false
 var enemy_data: Dictionary = {}
 var enemy_scene: PackedScene = preload("res://scenes/combat/enemies/enemy_base.tscn")
+var current_case: Dictionary = {}
+var boss_triggered_by_objectives: bool = false
 
 @onready var player: CharacterBody2D = $"../entities/player"
 @onready var enemies_container: Node2D = $"../entities/enemies"
 
 func _ready() -> void:
 	enemy_data = DataLoader.load_json("res://data/enemies/enemies.json")
+	current_case = CaseManager.get_current_case()
+	if not current_case.is_empty():
+		spawn_interval_min = current_case.get("spawn_interval_min", spawn_interval_min)
+		spawn_interval_max = current_case.get("spawn_interval_max", spawn_interval_max)
+		ramp_duration = current_case.get("ramp_duration", ramp_duration)
+		boss_spawn_time = current_case.get("boss_spawn_time", boss_spawn_time)
+
+	var objectives: Array = current_case.get("objectives", [])
+	for obj in objectives:
+		if obj.get("type") == "defeat_boss":
+			boss_triggered_by_objectives = true
+
 	EventBus.combat_started.connect(_on_combat_started)
 	EventBus.combat_ended.connect(_on_combat_ended)
 	EventBus.combat_paused.connect(_on_paused)
 	EventBus.combat_resumed.connect(_on_resumed)
+
+	var tracker = get_tree().current_scene.get_node_or_null("objective_tracker")
+	if tracker:
+		tracker.all_objectives_complete.connect(_on_objectives_done)
 
 func _on_combat_started() -> void:
 	enabled = true
@@ -47,6 +65,15 @@ func _process(delta: float) -> void:
 
 	game_timer += delta
 
+	if boss_triggered_by_objectives:
+		timer += delta
+		if timer >= next_spawn:
+			timer = 0.0
+			_spawn_enemy()
+			var t: float = min(game_timer / ramp_duration, 1.0)
+			next_spawn = lerp(spawn_interval_min, spawn_interval_max, t)
+		return
+
 	if game_timer >= boss_spawn_time and not boss_spawned:
 		_spawn_boss()
 		return
@@ -57,6 +84,9 @@ func _process(delta: float) -> void:
 		_spawn_enemy()
 		var t: float = min(game_timer / ramp_duration, 1.0)
 		next_spawn = lerp(spawn_interval_min, spawn_interval_max, t)
+
+func _on_objectives_done() -> void:
+	_spawn_boss()
 
 func _spawn_enemy() -> void:
 	var spawn_pos: Vector2 = _get_spawn_position()
@@ -95,16 +125,23 @@ func _get_spawn_position() -> Vector2:
 	return pos
 
 func _choose_enemy_type() -> String:
-	var types: Array[String] = ["empty_seat_passenger"]
-	if game_timer > 30:
-		types.append("reverse_walker")
-	if game_timer > 60:
-		types.append("low_frequency_shade")
-	return types[randi() % types.size()]
+	var pool: Array = current_case.get("enemy_pool", ["empty_seat_passenger", "reverse_walker", "low_frequency_shade"])
+	if game_timer < 30:
+		return pool[0] if pool.size() > 0 else "empty_seat_passenger"
+	elif game_timer < 60:
+		return pool[randi() % min(2, pool.size())]
+	else:
+		return pool[randi() % pool.size()]
 
 func _spawn_boss() -> void:
 	boss_spawned = true
-	var boss_scene: PackedScene = preload("res://scenes/combat/boss/grey_line_conductor.tscn")
+	var boss_id: String = current_case.get("boss_id", "grey_line_conductor")
+	var boss_path: String = "res://scenes/combat/boss/" + boss_id + ".tscn"
+	var boss_scene: PackedScene
+	if ResourceLoader.exists(boss_path):
+		boss_scene = load(boss_path)
+	else:
+		boss_scene = preload("res://scenes/combat/boss/grey_line_conductor.tscn")
 	if boss_scene:
 		var boss: Node2D = boss_scene.instantiate()
 		boss.global_position = Vector2(1920, 300)

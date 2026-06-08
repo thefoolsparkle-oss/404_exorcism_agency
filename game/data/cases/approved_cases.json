@@ -1,0 +1,53 @@
+{
+  "GLM-001": {
+    "case_id": "GLM-001",
+    "title_cn": "灰线末班车",
+    "title_en": "The Grey Line Last Train",
+    "display_name": "灰线末班车（The Grey Line Last Train）",
+    "district": "灰线地铁（Grey Line Metro）",
+    "threat_level": 2,
+    "anomaly_type": ["空间异常", "广播感染"],
+    "briefing": "凌晨2:17，新沪市地铁调度中心收到异常信号——一列不应存在的灰色列车出现在废弃多年的灰线轨道上。此后每晚同一时间，系统都会检测到该列车运行。三名调查员失踪，他们最后的位置都指向灰线终点站。",
+    "objectives": [
+      {"type": "collect", "target": "time_ticket", "count": 3, "text": "找到三张时间票"},
+      {"type": "disable", "target": "broadcast_device", "count": 4, "text": "关闭四个异常广播器"},
+      {"type": "defeat_boss", "target": "grey_line_conductor", "text": "击败灰线列车员"}
+    ],
+    "boss_id": "grey_line_conductor",
+    "enemy_pool": ["empty_seat_passenger", "reverse_walker", "low_frequency_shade"],
+    "spawn_interval_min": 2.5,
+    "spawn_interval_max": 1.0,
+    "ramp_duration": 100.0,
+    "boss_spawn_time": 100.0,
+    "reward_items": ["broken_monthly_pass", "low_frequency_broadcast_module"],
+    "archive_text": "档案编号 GLM-001：经确认，灰线地铁在1987年已全线停运。其轨道在2003年城市改造中被部分拆除。目前运营中的地铁线路均不与灰线接轨。如有市民声称乘坐过灰线列车，请立即联系404事务所。请不要查询终点站。如果广播中出现你的名字，不要回应。",
+    "source_inspiration": [
+      {"title": "都市怪谈集", "url": "https://example.com", "usage": "inspiration_only"}
+    ]
+  },
+  "GLM-002": {
+    "case_id": "GLM-002",
+    "title_cn": "第十三个站台",
+    "title_en": "The Thirteenth Station",
+    "display_name": "第十三个站台（The Thirteenth Station）",
+    "district": "灰线地铁（Grey Line Metro）",
+    "threat_level": 2,
+    "anomaly_type": ["空间异常", "认知感染"],
+    "briefing": "灰线地铁线路图上标记了12个站点。但近期有多名乘客声称在换乘时无意中到达了「第十三个站台」。站台墙壁是湿的，空气中弥漫着海水的气味，尽管新沪市距海岸线有200公里。凡到达此站台的人，都会在接下来三天内反复梦见同一段铁轨。",
+    "objectives": [
+      {"type": "collect", "target": "station_key", "count": 4, "text": "收集四把站台钥匙"},
+      {"type": "defeat_boss", "target": "station_shadow", "text": "击败站台暗影"}
+    ],
+    "boss_id": "station_shadow",
+    "enemy_pool": ["empty_seat_passenger", "reverse_walker", "low_frequency_shade"],
+    "spawn_interval_min": 3.0,
+    "spawn_interval_max": 1.2,
+    "ramp_duration": 110.0,
+    "boss_spawn_time": 110.0,
+    "reward_items": ["rusted_station_key", "seawater_sample"],
+    "archive_text": "档案编号 GLM-002：灰线地铁官方设计图纸显示仅有12个车站。建筑承包商也确认未建造额外的站台结构。关于「海水气味」的来源，地质勘测显示灰线最深处仅为地下30米，不可能接触到地下水层，更不用说海水。",
+    "source_inspiration": [
+      {"title": "都市怪谈集", "url": "https://example.com", "usage": "inspiration_only"}
+    ]
+  }
+}

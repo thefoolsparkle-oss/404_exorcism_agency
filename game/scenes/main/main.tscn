@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5n5ewp8f0g8m"]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/main/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://scenes/ui/case_briefing.tscn" id="2_briefing"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_main")
@@ -13,21 +14,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -300.0
-offset_right = 250.0
-offset_bottom = 300.0
+offset_left = -300.0
+offset_top = -350.0
+offset_right = 300.0
+offset_bottom = 350.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -200.0
-offset_right = 200.0
-offset_bottom = 200.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 25.0
+offset_right = -30.0
+offset_bottom = -25.0
+theme_override_constants/separation = 12
 
 [node name="TitleLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
@@ -39,25 +39,29 @@ theme_override_font_sizes/font_size = 36
 layout_mode = 2
 text = "New Hu City Anomaly Files"
 horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+
+[node name="Separator" type="HSeparator" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="CaseLabel" type="Label" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "选择案件:"
 theme_override_font_sizes/font_size = 18
+
+[node name="CaseListContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
 
 [node name="Spacer" type="Control" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 60)
-
-[node name="StartButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
-layout_mode = 2
-text = "进入任务"
-size_flags_horizontal = 4
-
-[node name="Spacer2" type="Control" parent="CanvasLayer/Panel/VBoxContainer"]
-layout_mode = 2
-custom_minimum_size = Vector2(0, 20)
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
 text = "退出游戏"
 size_flags_horizontal = 4
 
-[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[node name="CaseBriefing" parent="." instance=ExtResource("2_briefing")]
+
 [connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

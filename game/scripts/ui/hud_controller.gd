@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var timer_label: Label = $timer_label
 @onready var boss_hp: ProgressBar = $boss_hp
 @onready var skill_icons: HBoxContainer = $skill_icons
+@onready var objectives_label: Label = $objectives_panel/objectives_label
 
 var skill_scene: PackedScene = preload("res://scenes/ui/skill_icon.tscn")
 
@@ -19,6 +20,13 @@ func _ready() -> void:
 	EventBus.skill_acquired.connect(_on_skill_acquired)
 	EventBus.combat_started.connect(_on_combat_started)
 	boss_hp.visible = false
+
+	var tracker = get_tree().current_scene.get_node_or_null("objective_tracker")
+	if tracker:
+		tracker.objective_updated.connect(_on_objective_updated)
+		_refresh_objectives()
+	else:
+		objectives_label.visible = false
 
 func _on_combat_started() -> void:
 	boss_hp.visible = false
@@ -58,3 +66,15 @@ func _on_skill_acquired(skill_id: String, tier: int) -> void:
 	icon.skill_id = skill_id
 	icon.skill_tier = tier
 	skill_icons.add_child(icon)
+
+func _on_objective_updated(_index: int, _current: int, _target: int) -> void:
+	_refresh_objectives()
+
+func _refresh_objectives() -> void:
+	var tracker = get_tree().current_scene.get_node_or_null("objective_tracker")
+	if not tracker:
+		return
+	var lines: PackedStringArray = []
+	for i in range(tracker.objectives.size()):
+		lines.append(tracker.get_objective_text(i))
+	objectives_label.text = "\n".join(lines)

@@ -20,7 +20,15 @@ func _on_combat_ended(victory: bool) -> void:
 		title_label.text = "任务失败"
 		title_label.add_theme_color_override("font_color", Color.RED)
 
-	stats_label.text = "击杀: %d | 等级: %d" % [kill_count, final_level]
+	var obj_lines: PackedStringArray = ["击杀: %d | 等级: %d" % [kill_count, final_level]]
+	var tracker = get_tree().current_scene.get_node_or_null("objective_tracker")
+	if tracker:
+		obj_lines.append("")
+		obj_lines.append("目标完成情况:")
+		for i in range(tracker.objectives.size()):
+			var mark: String = "✓" if tracker.is_objective_done(i) else "✗"
+			obj_lines.append("  %s %s" % [mark, tracker.objectives[i].get("text", "")])
+	stats_label.text = "\n".join(obj_lines)
 	visible = true
 
 func _on_restart_pressed() -> void:

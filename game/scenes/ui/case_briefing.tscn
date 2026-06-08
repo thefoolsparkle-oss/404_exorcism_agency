@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/case_briefing.gd" id="1_briefing"]
+
+[node name="CaseBriefing" type="CanvasLayer"]
+script = ExtResource("1_briefing")
+
+[node name="panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -280.0
+offset_right = 350.0
+offset_bottom = 280.0
+
+[node name="vbox" type="VBoxContainer" parent="panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 20.0
+offset_right = -25.0
+offset_bottom = -20.0
+theme_override_constants/separation = 10
+
+[node name="title_label" type="Label" parent="panel/vbox"]
+layout_mode = 2
+text = "案件标题"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 28
+
+[node name="threat_label" type="Label" parent="panel/vbox"]
+layout_mode = 2
+text = "威胁等级: - | 区域: -"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+
+[node name="briefing_label" type="Label" parent="panel/vbox"]
+layout_mode = 2
+text = "案件简报"
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 14
+
+[node name="objectives_label" type="Label" parent="panel/vbox"]
+layout_mode = 2
+text = "任务目标:\n  - [目标]"
+theme_override_font_sizes/font_size = 14
+
+[node name="spacer" type="Control" parent="panel/vbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="hbox" type="HBoxContainer" parent="panel/vbox"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="back_button" type="Button" parent="panel/vbox/hbox"]
+layout_mode = 2
+text = "返回"
+size_flags_horizontal = 3
+
+[node name="confirm_button" type="Button" parent="panel/vbox/hbox"]
+layout_mode = 2
+text = "接受任务"
+size_flags_horizontal = 3
