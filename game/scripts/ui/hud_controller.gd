@@ -1,10 +1,10 @@
 extends CanvasLayer
 
-@onready var hp_bar: ProgressBar = $hp_panel/hp_bar
-@onready var hp_text: Label = $hp_panel/hp_text
-@onready var xp_bar: ProgressBar = $xp_panel/xp_bar
-@onready var xp_text: Label = $xp_panel/xp_text
-@onready var level_label: Label = $xp_panel/level_label
+@onready var hp_bar: ProgressBar = $hp_panel/vbox_hp/hp_bar
+@onready var hp_text: Label = $hp_panel/vbox_hp/hp_text
+@onready var xp_bar: ProgressBar = $xp_panel/vbox_xp/xp_bar
+@onready var xp_text: Label = $xp_panel/vbox_xp/xp_text
+@onready var level_label: Label = $xp_panel/vbox_xp/level_label
 @onready var timer_label: Label = $timer_label
 @onready var boss_hp: ProgressBar = $boss_hp
 @onready var skill_icons: HBoxContainer = $skill_icons
