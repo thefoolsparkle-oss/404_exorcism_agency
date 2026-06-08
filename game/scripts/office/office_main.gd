@@ -2,9 +2,9 @@ extends Node2D
 
 var characters_data: Dictionary = {}
 
-@onready var terminal_button: Button = $CanvasLayer/TerminalPanel/terminal_button
-@onready var archive_button: Button = $CanvasLayer/TerminalPanel/archive_button
-@onready var char_select: OptionButton = $CanvasLayer/TerminalPanel/char_select
+@onready var terminal_button: Button = $CanvasLayer/TerminalPanel/VBox/terminal_button
+@onready var archive_button: Button = $CanvasLayer/TerminalPanel/VBox/archive_button
+@onready var char_select: OptionButton = $CanvasLayer/TerminalPanel/VBox/char_select
 @onready var resources_label: Label = $CanvasLayer/ResourcesLabel
 @onready var briefing: CanvasLayer = $CanvasLayer/CaseBriefing
 @onready var case_list_ui: Node2D = $CanvasLayer/CaseListUI
