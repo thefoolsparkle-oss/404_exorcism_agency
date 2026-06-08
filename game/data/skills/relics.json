@@ -1,0 +1,72 @@
+{
+  "broken_monthly_pass": {
+    "id": "broken_monthly_pass",
+    "name_cn": "破碎的月票",
+    "name_en": "Broken Monthly Pass",
+    "description_cn": "经验获取 +20%",
+    "effect": {"xp_mult": 1.2}
+  },
+  "low_frequency_broadcast_module": {
+    "id": "low_frequency_broadcast_module",
+    "name_cn": "低频广播模块",
+    "name_en": "Low-Frequency Broadcast Module",
+    "description_cn": "每隔30秒对周围敌人造成20点伤害",
+    "effect": {"aoe_interval": 30.0, "aoe_damage": 20, "aoe_radius": 200}
+  },
+  "rusted_station_key": {
+    "id": "rusted_station_key",
+    "name_cn": "锈蚀的站台钥匙",
+    "name_en": "Rusted Station Key",
+    "description_cn": "移动速度 +15%",
+    "effect": {"speed_mult": 1.15}
+  },
+  "seawater_sample": {
+    "id": "seawater_sample",
+    "name_cn": "海水样本",
+    "name_en": "Seawater Sample",
+    "description_cn": "每次击杀回复 5% 最大生命值",
+    "effect": {"heal_on_kill": 0.05}
+  },
+  "broken_mirror_piece": {
+    "id": "broken_mirror_piece",
+    "name_cn": "破碎镜片",
+    "name_en": "Broken Mirror Piece",
+    "description_cn": "穿透 +1",
+    "effect": {"pierce_bonus": 1}
+  },
+  "name_tag": {
+    "id": "name_tag",
+    "name_cn": "姓名牌",
+    "name_en": "Name Tag",
+    "description_cn": "最大生命值 +25",
+    "effect": {"max_hp_bonus": 25}
+  },
+  "broken_broadcast_chip": {
+    "id": "broken_broadcast_chip",
+    "name_cn": "损毁的广播芯片",
+    "name_en": "Broken Broadcast Chip",
+    "description_cn": "攻击力 +25%",
+    "effect": {"damage_mult": 1.25}
+  },
+  "voice_recorder": {
+    "id": "voice_recorder",
+    "name_cn": "录音笔",
+    "name_en": "Voice Recorder",
+    "description_cn": "攻击间隔 -20%",
+    "effect": {"attack_speed_mult": 0.8}
+  },
+  "reversed_pocket_watch": {
+    "id": "reversed_pocket_watch",
+    "name_cn": "倒走的怀表",
+    "name_en": "Reversed Pocket Watch",
+    "description_cn": "投射物速度 +40%，范围 +30%",
+    "effect": {"projectile_speed_mult": 1.4, "range_mult": 1.3}
+  },
+  "old_news_clip": {
+    "id": "old_news_clip",
+    "name_cn": "旧报纸剪报",
+    "name_en": "Old News Clip",
+    "description_cn": "每30秒获得一个持续5秒的护盾",
+    "effect": {"shield_interval": 30.0, "shield_duration": 5.0}
+  }
+}

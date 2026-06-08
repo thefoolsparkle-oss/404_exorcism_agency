@@ -147,5 +147,13 @@ func _spawn_boss() -> void:
 		boss.global_position = Vector2(1920, 300)
 		if boss.has_method("set_player_ref"):
 			boss.set_player_ref(player)
+		var boss_stats: Dictionary = current_case.get("boss_stats", {})
+		if boss_stats.has("max_hp"):
+			boss.max_hp = boss_stats.max_hp
+			boss.current_hp = boss_stats.max_hp
+		if boss_stats.has("move_speed"):
+			boss.move_speed = boss_stats.move_speed
+		if boss_stats.has("contact_damage"):
+			boss.contact_damage = boss_stats.contact_damage
 		enemies_container.add_child(boss)
 		EventBus.boss_spawned.emit()

@@ -12,5 +12,19 @@
     "attack_range": 520.0,
     "projectile_speed": 420.0,
     "color": "dodgerblue"
+  },
+  "xu_zhaye": {
+    "id": "xu_zhaye",
+    "name_cn": "徐招夜",
+    "name_en": "Xu Zhaoye",
+    "title": "民俗调查员",
+    "description": "民俗学研究者，以纸人、铜钱、八卦镜等传统法器应对异常。召唤物更多，生存能力更强。",
+    "max_hp": 120,
+    "move_speed": 180.0,
+    "base_damage": 8,
+    "attack_interval": 0.6,
+    "attack_range": 450.0,
+    "projectile_speed": 350.0,
+    "color": "darkgoldenrod"
   }
 }

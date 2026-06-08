@@ -9,7 +9,7 @@ var data: Dictionary = {
 		"broken_circuit": 0
 	},
 	"completed_cases": [],
-	"unlocked_characters": ["lin_jin"],
+	"unlocked_characters": ["lin_jin", "xu_zhaye"],
 	"selected_character": "lin_jin",
 	"permanent_upgrades": {}
 }
