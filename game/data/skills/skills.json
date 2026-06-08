@@ -1,0 +1,72 @@
+{
+  "red_talisman_pulse": {
+    "id": "red_talisman_pulse",
+    "name_cn": "红符脉冲",
+    "name_en": "Red Talisman Pulse",
+    "description_cn": "投射物穿透 +1 名敌人",
+    "description_en": "Projectiles pierce +1 enemy",
+    "type": "passive",
+    "max_tier": 2,
+    "tiers": [
+      {"pierce_bonus": 1, "damage_mult": 1.0},
+      {"pierce_bonus": 2, "damage_mult": 1.2}
+    ],
+    "icon_color": "crimson"
+  },
+  "azure_talisman_chain": {
+    "id": "azure_talisman_chain",
+    "name_cn": "青符锁链",
+    "name_en": "Azure Talisman Chain",
+    "description_cn": "每隔 5 秒连锁闪电弹跳 3 次",
+    "description_en": "Every 5s, chain lightning bounces 3 times",
+    "type": "active_interval",
+    "max_tier": 2,
+    "tiers": [
+      {"interval": 5.0, "bounces": 3, "damage": 15, "range": 200},
+      {"interval": 4.0, "bounces": 5, "damage": 25, "range": 300}
+    ],
+    "icon_color": "dodgerblue"
+  },
+  "thunder_seal_array": {
+    "id": "thunder_seal_array",
+    "name_cn": "雷鸣符阵",
+    "name_en": "Thunder Seal Array",
+    "description_cn": "每隔 8 秒在身边释放雷电环",
+    "description_en": "Every 8s, release a lightning ring around you",
+    "type": "active_interval",
+    "max_tier": 2,
+    "tiers": [
+      {"interval": 8.0, "damage": 25, "radius": 150},
+      {"interval": 6.0, "damage": 40, "radius": 220}
+    ],
+    "icon_color": "gold"
+  },
+  "will_o_wisp_drone": {
+    "id": "will_o_wisp_drone",
+    "name_cn": "鬼火无人机",
+    "name_en": "Will-o-Wisp Drone",
+    "description_cn": "召唤无人机自动攻击附近敌人",
+    "description_en": "Summon a drone that auto-attacks nearby enemies",
+    "type": "summon",
+    "max_tier": 2,
+    "tiers": [
+      {"count": 1, "damage": 8, "attack_interval": 1.0, "range": 250},
+      {"count": 2, "damage": 12, "attack_interval": 0.7, "range": 350}
+    ],
+    "icon_color": "limegreen"
+  },
+  "firewall_barrier": {
+    "id": "firewall_barrier",
+    "name_cn": "防火墙障",
+    "name_en": "Firewall Barrier",
+    "description_cn": "每隔 15 秒生成护盾，持续 3 秒",
+    "description_en": "Every 15s, gain a shield for 3s",
+    "type": "active_interval",
+    "max_tier": 2,
+    "tiers": [
+      {"interval": 15.0, "duration": 3.0},
+      {"interval": 10.0, "duration": 5.0}
+    ],
+    "icon_color": "darkorange"
+  }
+}
