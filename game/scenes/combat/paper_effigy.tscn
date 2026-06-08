@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/paper_effigy.gd" id="1_effigy"]
+
+[sub_resource type="CircleShape2D" id="Circle_effigy"]
+radius = 30.0
+
+[node name="PaperEffigy" type="Area2D" groups=["paper_decoy"]]
+script = ExtResource("1_effigy")
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+shape = SubResource("Circle_effigy")
