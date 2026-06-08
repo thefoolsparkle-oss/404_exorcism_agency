@@ -1,7 +1,6 @@
-class_name DataLoader
 extends Node
 
-static func load_json(path: String) -> Dictionary:
+func load_json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		push_error("DataLoader: file not found: %s" % path)
 		return {}
