@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/office/office_main.gd" id="1_office"]
 [ext_resource type="Script" path="res://scripts/ui/office_case_list.gd" id="2_case_list"]
@@ -88,8 +88,17 @@ layout_mode = 2
 layout_mode = 2
 text = "退出游戏"
 
-[node name="CaseListUI" type="Node2D" parent="CanvasLayer"]
+[node name="CaseListUI" type="Control" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource("2_case_list")
+
+[node name="DimBackground" type="ColorRect" parent="CanvasLayer/CaseListUI"]
+color = Color(0, 0, 0, 0.5)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="Panel" type="Panel" parent="CanvasLayer/CaseListUI"]
 anchors_preset = 8

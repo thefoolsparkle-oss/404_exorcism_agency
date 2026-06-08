@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 var card_scene: PackedScene = preload("res://scenes/ui/case_select_card.tscn")
 
