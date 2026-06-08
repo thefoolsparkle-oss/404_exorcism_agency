@@ -52,8 +52,8 @@ func _random_map_position() -> Vector2:
 	var player = get_tree().current_scene.get_node_or_null("entities/player")
 	var center: Vector2 = player.global_position if player else Vector2(1920, 1080)
 	var angle: float = randf_range(0, TAU)
-	var dist: float = randf_range(250, 700)
+	var dist: float = randf_range(150, 400)
 	var pos: Vector2 = center + Vector2.RIGHT.rotated(angle) * dist
-	pos.x = clamp(pos.x, 100, 3740)
-	pos.y = clamp(pos.y, 100, 2060)
+	pos.x = clamp(pos.x, 80, 3760)
+	pos.y = clamp(pos.y, 80, 2080)
 	return pos
