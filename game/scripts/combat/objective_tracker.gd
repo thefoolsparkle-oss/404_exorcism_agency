@@ -34,6 +34,8 @@ func is_objective_done(index: int) -> bool:
 
 func are_all_done() -> bool:
 	for i in range(objectives.size()):
+		if objectives[i].get("type") == "defeat_boss":
+			continue
 		if not is_objective_done(i):
 			return false
 	return true
