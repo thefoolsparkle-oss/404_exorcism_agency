@@ -2,6 +2,7 @@ extends Node2D
 
 var xp_orb_scene: PackedScene = preload("res://scenes/combat/experience_orb.tscn")
 var current_case: Dictionary = {}
+var player_node: CharacterBody2D
 
 @onready var objective_tracker: Node = $objective_tracker
 
@@ -11,6 +12,35 @@ func _ready() -> void:
 	objective_tracker.all_objectives_complete.connect(_on_all_objectives_done)
 	EventBus.experience_dropped.connect(_on_experience_dropped)
 	EventBus.combat_started.emit()
+	_apply_character_stats()
+
+func _apply_character_stats() -> void:
+	var char_data: Dictionary = DataLoader.load_json("res://data/characters/characters.json")
+	var selected: String = SaveManager.data.selected_character
+	var stats: Dictionary = char_data.get(selected, {})
+	if stats.is_empty():
+		return
+	player_node = $entities/player
+	if stats.has("max_hp"):
+		player_node.max_hp = stats.max_hp
+		player_node.current_hp = stats.max_hp
+	if stats.has("move_speed"):
+		player_node.move_speed = stats.move_speed
+	var weapon: Node2D = player_node.get_node("weapon_system")
+	if weapon:
+		if stats.has("base_damage"):
+			weapon.base_damage = stats.base_damage
+			weapon.current_damage = stats.base_damage
+		if stats.has("attack_interval"):
+			weapon.base_attack_interval = stats.attack_interval
+			weapon.current_attack_interval = stats.attack_interval
+		if stats.has("attack_range"):
+			weapon.attack_range = stats.attack_range
+		if stats.has("projectile_speed"):
+			weapon.projectile_speed = stats.projectile_speed
+	if stats.has("color"):
+		player_node.get_node("visual").color = Color(stats.color)
+	EventBus.player_health_changed.emit(player_node.current_hp, player_node.max_hp)
 
 func _on_experience_dropped(position: Vector2, amount: int) -> void:
 	var orb: Area2D = xp_orb_scene.instantiate()

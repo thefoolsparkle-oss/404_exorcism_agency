@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @onready var title_label: Label = $panel/vbox/title_label
 @onready var stats_label: Label = $panel/vbox/stats_label
+@onready var rewards_label: Label = $panel/vbox/rewards_label
 
 var kill_count: int = 0
 var final_level: int = 1
@@ -16,9 +17,20 @@ func _on_combat_ended(victory: bool) -> void:
 	if victory:
 		title_label.text = "任务完成"
 		title_label.add_theme_color_override("font_color", Color.GREEN)
+		var case_data: Dictionary = CaseManager.get_current_case()
+		var threat: int = case_data.get("threat_level", 1)
+		var essence: int = threat * 50 + final_level * 10
+		var circuits: int = threat
+		SaveManager.add_resource("anomaly_essence", essence)
+		SaveManager.add_resource("broken_circuit", circuits)
+		SaveManager.complete_case(case_data.get("case_id", ""))
+		SaveManager.save()
+		rewards_label.text = "获得: 精华 ×%d | 回路 ×%d" % [essence, circuits]
+		rewards_label.visible = true
 	else:
 		title_label.text = "任务失败"
 		title_label.add_theme_color_override("font_color", Color.RED)
+		rewards_label.visible = false
 
 	var obj_lines: PackedStringArray = ["击杀: %d | 等级: %d" % [kill_count, final_level]]
 	var tracker = get_tree().current_scene.get_node_or_null("objective_tracker")
@@ -35,4 +47,5 @@ func _on_restart_pressed() -> void:
 	EventBus.request_restart.emit()
 
 func _on_quit_pressed() -> void:
+	SaveManager.save()
 	EventBus.request_main_menu.emit()

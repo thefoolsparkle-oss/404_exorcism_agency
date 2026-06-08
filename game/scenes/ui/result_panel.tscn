@@ -11,36 +11,43 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -180.0
-offset_right = 250.0
-offset_bottom = 180.0
+offset_left = -260.0
+offset_top = -210.0
+offset_right = 260.0
+offset_bottom = 210.0
 
 [node name="vbox" type="VBoxContainer" parent="panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 30.0
-offset_right = -30.0
-offset_bottom = -30.0
-theme_override_constants/separation = 15
+offset_left = 25.0
+offset_top = 20.0
+offset_right = -25.0
+offset_bottom = -20.0
+theme_override_constants/separation = 10
 
 [node name="title_label" type="Label" parent="panel/vbox"]
 layout_mode = 2
 text = "任务完成"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 30
+
+[node name="rewards_label" type="Label" parent="panel/vbox"]
+layout_mode = 2
+text = ""
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
 
 [node name="stats_label" type="Label" parent="panel/vbox"]
 layout_mode = 2
 text = "击杀: 0 | 等级: 1"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 14
 
 [node name="spacer" type="Control" parent="panel/vbox"]
 layout_mode = 2
-custom_minimum_size = Vector2(0, 20)
+size_flags_vertical = 3
 
 [node name="restart_button" type="Button" parent="panel/vbox"]
 layout_mode = 2
@@ -49,8 +56,7 @@ size_flags_horizontal = 4
 
 [node name="quit_button" type="Button" parent="panel/vbox"]
 layout_mode = 2
-text = "返回主菜单"
-size_flags_horizontal = 4
+text = "返回事务所"
 
 [connection signal="pressed" from="panel/vbox/restart_button" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="panel/vbox/quit_button" to="." method="_on_quit_pressed"]

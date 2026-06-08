@@ -1,0 +1,16 @@
+{
+  "lin_jin": {
+    "id": "lin_jin",
+    "name_cn": "林锦",
+    "name_en": "Lin Jin",
+    "title": "符咒黑客",
+    "description": "将传统符咒改写为可执行脚本，用电子符纸入侵异常。",
+    "max_hp": 90,
+    "move_speed": 210.0,
+    "base_damage": 12,
+    "attack_interval": 0.45,
+    "attack_range": 520.0,
+    "projectile_speed": 420.0,
+    "color": "dodgerblue"
+  }
+}
