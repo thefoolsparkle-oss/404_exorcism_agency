@@ -35,6 +35,7 @@ func _on_combat_started() -> void:
 	boss_hp.visible = false
 	for child in skill_icons.get_children():
 		child.queue_free()
+	_refresh_objectives()
 
 func _process(_delta: float) -> void:
 	if GameManager.current_state == GameManager.GameState.COMBAT_ACTIVE:

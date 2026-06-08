@@ -12,7 +12,7 @@ func _ready() -> void:
 	EventBus.experience_dropped.connect(_on_experience_dropped)
 	EventBus.combat_started.emit()
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.keycode == KEY_ESCAPE and event.pressed:
 		_show_pause_menu()
 
