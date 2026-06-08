@@ -10,7 +10,34 @@ func _ready() -> void:
 	objective_tracker.setup(current_case)
 	objective_tracker.all_objectives_complete.connect(_on_all_objectives_done)
 	EventBus.experience_dropped.connect(_on_experience_dropped)
+	_apply_relics()
 	EventBus.combat_started.emit()
+
+func _apply_relics() -> void:
+	var relics_data: Dictionary = DataLoader.load_json("res://data/skills/relics.json")
+	var case_data: Dictionary = DataLoader.load_json("res://data/cases/approved_cases.json")
+	var player = $entities/player
+	if not player:
+		return
+	for case_id in SaveManager.data.completed_cases:
+		var case_info: Dictionary = case_data.get(case_id, {})
+		for reward_id in case_info.get("reward_items", []):
+			var relic: Dictionary = relics_data.get(reward_id, {})
+			var effect: Dictionary = relic.get("effect", {})
+			if effect.has("max_hp_bonus"):
+				player.max_hp += effect.max_hp_bonus
+				player.current_hp += effect.max_hp_bonus
+			if effect.has("speed_mult"):
+				player.move_speed *= effect.speed_mult
+			if effect.has("pierce_bonus"):
+				player.get_node("weapon_system").pierce_count += effect.pierce_bonus
+			if effect.has("damage_mult"):
+				var w = player.get_node("weapon_system")
+				w.base_damage = int(w.base_damage * effect.damage_mult)
+				w.current_damage = w.base_damage
+			if effect.has("xp_mult"):
+				player.experience_to_next = int(player.experience_to_next / effect.xp_mult)
+	EventBus.player_health_changed.emit(player.current_hp, player.max_hp)
 
 var esc_was_pressed: bool = false
 var pause_was_pressed: bool = false
