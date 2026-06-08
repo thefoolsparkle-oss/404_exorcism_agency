@@ -13,13 +13,16 @@ func _ready() -> void:
 	EventBus.combat_started.emit()
 
 var esc_was_pressed: bool = false
+var pause_was_pressed: bool = false
 
 func _process(_delta: float) -> void:
 	var esc_now: bool = Input.is_key_pressed(KEY_ESCAPE)
-	if esc_now and not esc_was_pressed:
+	var p_now: bool = Input.is_key_pressed(KEY_P)
+	if (esc_now and not esc_was_pressed) or (p_now and not pause_was_pressed):
 		if GameManager.current_state == GameManager.GameState.COMBAT_ACTIVE:
 			_show_pause_menu()
 	esc_was_pressed = esc_now
+	pause_was_pressed = p_now
 
 func _show_pause_menu() -> void:
 	if GameManager.current_state != GameManager.GameState.COMBAT_ACTIVE:
