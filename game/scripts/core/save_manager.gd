@@ -1,6 +1,7 @@
 extends Node
 
 var save_path: String = "user://save.json"
+var data: Dictionary = {}
 
 func _init() -> void:
 	_save_default()
