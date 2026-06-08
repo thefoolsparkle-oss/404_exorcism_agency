@@ -5,6 +5,7 @@ var characters_data: Dictionary = {}
 @onready var terminal_button: Button = $CanvasLayer/Margin/MainVBox/terminal_button
 @onready var archive_button: Button = $CanvasLayer/Margin/MainVBox/archive_button
 @onready var char_select: OptionButton = $CanvasLayer/Margin/MainVBox/CharacterSection/char_select
+@onready var char_desc: Label = $CanvasLayer/Margin/MainVBox/CharacterSection/char_desc
 @onready var resources_label: Label = $CanvasLayer/Margin/MainVBox/ResourcesLabel
 @onready var briefing: CanvasLayer = $CanvasLayer/CaseBriefing
 @onready var case_list_ui: Control = $CanvasLayer/CaseListUI
@@ -31,11 +32,14 @@ func _populate_characters() -> void:
 		char_select.add_item(label)
 		if char_id == SaveManager.data.selected_character:
 			char_select.select(char_select.item_count - 1)
+			char_desc.text = data.get("backstory", "")
 
 func _on_char_selected(idx: int) -> void:
 	var char_ids: Array = SaveManager.data.unlocked_characters
 	if idx >= 0 and idx < char_ids.size():
 		SaveManager.select_character(char_ids[idx])
+		var data: Dictionary = characters_data.get(char_ids[idx], {})
+		char_desc.text = data.get("backstory", "")
 
 func _open_case_list() -> void:
 	case_list_ui.visible = true
