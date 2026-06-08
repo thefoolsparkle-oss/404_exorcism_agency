@@ -1,0 +1,3 @@
+[gd_scene load_steps=1 format=3 uid="uid://b7q2dm1r4p0n2"]
+
+[node name="Combat" type="Node2D"]
