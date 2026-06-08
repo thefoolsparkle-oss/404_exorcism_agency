@@ -42,6 +42,27 @@ func _apply_character_stats() -> void:
 		player_node.get_node("visual").color = Color(stats.color)
 	EventBus.player_health_changed.emit(player_node.current_hp, player_node.max_hp)
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		_show_pause_menu()
+
+func _show_pause_menu() -> void:
+	if GameManager.current_state != GameManager.GameState.COMBAT_ACTIVE:
+		return
+	EventBus.request_pause.emit()
+	var popup: AcceptDialog = AcceptDialog.new()
+	popup.title = "暂停"
+	popup.dialog_text = "是否返回事务所？"
+	popup.confirmed.connect(func():
+		SaveManager.save()
+		EventBus.request_main_menu.emit()
+	)
+	popup.canceled.connect(func():
+		EventBus.request_resume.emit()
+	)
+	get_tree().current_scene.add_child(popup)
+	popup.popup_centered()
+
 func _on_experience_dropped(position: Vector2, amount: int) -> void:
 	var orb: Area2D = xp_orb_scene.instantiate()
 	orb.global_position = position

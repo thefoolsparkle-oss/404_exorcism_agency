@@ -3,12 +3,16 @@ extends CanvasLayer
 @onready var title_label: Label = $panel/vbox/title_label
 @onready var stats_label: Label = $panel/vbox/stats_label
 @onready var rewards_label: Label = $panel/vbox/rewards_label
+@onready var restart_btn: Button = $panel/vbox/restart_button
+@onready var quit_btn: Button = $panel/vbox/quit_button
 
 var kill_count: int = 0
 var final_level: int = 1
 
 func _ready() -> void:
 	visible = false
+	restart_btn.pressed.connect(_on_restart_pressed)
+	quit_btn.pressed.connect(_on_quit_pressed)
 	EventBus.combat_ended.connect(_on_combat_ended)
 	EventBus.enemy_killed.connect(func(_t, _p): kill_count += 1)
 	EventBus.player_leveled_up.connect(func(lv): final_level = lv)
@@ -25,7 +29,7 @@ func _on_combat_ended(victory: bool) -> void:
 		SaveManager.add_resource("broken_circuit", circuits)
 		SaveManager.complete_case(case_data.get("case_id", ""))
 		SaveManager.save()
-		rewards_label.text = "获得: 精华 ×%d | 回路 ×%d" % [essence, circuits]
+		rewards_label.text = "获得: 精华 x%d | 回路 x%d" % [essence, circuits]
 		rewards_label.visible = true
 	else:
 		title_label.text = "任务失败"
