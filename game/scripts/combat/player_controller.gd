@@ -32,6 +32,8 @@ func _physics_process(delta: float) -> void:
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy") and body.get("contact_damage"):
 		take_damage(body.damage)
+	if body.is_in_group("boss"):
+		take_damage(body.contact_damage)
 
 func take_damage(amount: int) -> void:
 	if invincible:

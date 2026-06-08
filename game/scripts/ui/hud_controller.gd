@@ -31,6 +31,12 @@ func _process(_delta: float) -> void:
 		if spawn_dir:
 			timer_label.text = "%.0fs" % spawn_dir.game_timer
 
+	var player = get_tree().current_scene.get_node_or_null("entities/player")
+	if player:
+		xp_bar.max_value = player.experience_to_next
+		xp_bar.value = player.experience
+		xp_text.text = "%d/%d" % [player.experience, player.experience_to_next]
+
 func _on_player_health_changed(current: int, max_val: int) -> void:
 	hp_bar.max_value = max_val
 	hp_bar.value = current

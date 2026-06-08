@@ -104,9 +104,11 @@ func _choose_enemy_type() -> String:
 
 func _spawn_boss() -> void:
 	boss_spawned = true
-	var boss_scene: PackedScene = load("res://scenes/combat/boss/grey_line_conductor.tscn")
+	var boss_scene: PackedScene = preload("res://scenes/combat/boss/grey_line_conductor.tscn")
 	if boss_scene:
 		var boss: Node2D = boss_scene.instantiate()
 		boss.global_position = Vector2(1920, 300)
+		if boss.has_method("set_player_ref"):
+			boss.set_player_ref(player)
 		enemies_container.add_child(boss)
 		EventBus.boss_spawned.emit()
