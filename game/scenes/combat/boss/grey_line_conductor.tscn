@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss/grey_line_conductor.gd" id="1_boss"]
+
+[sub_resource type="CircleShape2D" id="Circle_boss_body"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="Circle_boss_hit"]
+radius = 55.0
+
+[node name="GreyLineConductor" type="CharacterBody2D" groups=["boss"]]
+script = ExtResource("1_boss")
+
+[node name="visual" type="ColorRect" parent="."]
+color = Color(0.35, 0.35, 0.4, 1)
+size = Vector2(100, 100)
+position = Vector2(-50, -50)
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+shape = SubResource("Circle_boss_body")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="hitbox_collision" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("Circle_boss_hit")
+
+[node name="boss_hp_bar" type="ProgressBar" parent="."]
+offset_top = -60.0
+offset_left = -75.0
+size = Vector2(150, 16)
+show_percentage = false
