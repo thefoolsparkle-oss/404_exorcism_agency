@@ -19,7 +19,6 @@ func _ready() -> void:
 
 func _build_spawn_queue() -> void:
 	spawn_queue.clear()
-	spawned_count.clear()
 	var objectives: Array = current_case.get("objectives", [])
 	for obj in objectives:
 		var obj_type: String = obj.get("type", "")
@@ -28,7 +27,6 @@ func _build_spawn_queue() -> void:
 		if obj_type == "collect" or obj_type == "disable":
 			for i in range(count):
 				spawn_queue.append({"type": obj_type, "target": target, "text": obj.get("text", target)})
-			spawned_count[target] = 0
 	spawn_queue.shuffle()
 
 func _process(delta: float) -> void:
