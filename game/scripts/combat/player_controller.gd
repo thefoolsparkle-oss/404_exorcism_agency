@@ -46,9 +46,6 @@ func _apply_character_stats() -> void:
 func _physics_process(delta: float) -> void:
 	if invincible_timer > 0:
 		invincible_timer -= delta
-		$visual.modulate.a = 0.5 + sin(Time.get_ticks_msec() * 0.03) * 0.5
-	else:
-		$visual.modulate.a = 1.0
 
 	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_dir * move_speed

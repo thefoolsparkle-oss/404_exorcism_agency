@@ -2,23 +2,15 @@ extends Node
 
 var save_path: String = "user://save.json"
 
-var data: Dictionary = {
-	"version": 1,
-	"resources": {
-		"anomaly_essence": 0,
-		"broken_circuit": 0
-	},
-	"completed_cases": [],
-	"unlocked_characters": ["lin_jin", "xu_zhaye"],
-	"selected_character": "lin_jin",
-	"permanent_upgrades": {}
-}
+func _init() -> void:
+	_save_default()
 
 func _ready() -> void:
 	_load()
 
 func _load() -> void:
 	if not FileAccess.file_exists(save_path):
+		_save_default()
 		return
 	var file: FileAccess = FileAccess.open(save_path, FileAccess.READ)
 	var text: String = file.get_as_text()
@@ -26,6 +18,21 @@ func _load() -> void:
 	var error: Error = json.parse(text)
 	if error == OK and json.data is Dictionary:
 		data = json.data
+	_migrate()
+
+func _migrate() -> void:
+	if "xu_zhaye" not in data.unlocked_characters:
+		data.unlocked_characters.append("xu_zhaye")
+
+func _save_default() -> void:
+	data = {
+		"version": 1,
+		"resources": {"anomaly_essence": 0, "broken_circuit": 0},
+		"completed_cases": [],
+		"unlocked_characters": ["lin_jin", "xu_zhaye"],
+		"selected_character": "lin_jin",
+		"permanent_upgrades": {}
+	}
 
 func save() -> void:
 	var file: FileAccess = FileAccess.open(save_path, FileAccess.WRITE)

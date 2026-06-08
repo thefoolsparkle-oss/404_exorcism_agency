@@ -40,7 +40,18 @@ func _open_case_list() -> void:
 	case_list_ui.visible = true
 
 func _open_archive() -> void:
-	pass
+	var popup: AcceptDialog = AcceptDialog.new()
+	popup.title = "案件档案"
+	var text: String = ""
+	var case_data: Dictionary = DataLoader.load_json("res://data/cases/approved_cases.json")
+	for case_id in SaveManager.data.completed_cases:
+		var info: Dictionary = case_data.get(case_id, {})
+		text += "■ %s\n%s\n\n" % [info.get("display_name", case_id), info.get("archive_text", "")]
+	if text == "":
+		text = "暂无完成的案件。"
+	popup.dialog_text = text
+	get_tree().current_scene.add_child(popup)
+	popup.popup_centered()
 
 func _on_case_confirmed(_case_id: String) -> void:
 	SaveManager.save()

@@ -131,15 +131,17 @@ func _trigger_thunder_ring(data: Dictionary) -> void:
 
 func _trigger_shield(data: Dictionary) -> void:
 	player.invincible = true
+	player.invincible_timer = data.duration
 	var shield: ColorRect = ColorRect.new()
-	shield.color = Color(1.0, 0.6, 0.2, 0.5)
-	shield.size = Vector2(50, 50)
-	shield.position = Vector2(-25, -25)
+	shield.color = Color(1.0, 0.6, 0.1, 0.3)
+	shield.size = Vector2(54, 54)
+	shield.position = Vector2(-27, -27)
 	shield.name = "shield_vfx"
 	player.add_child(shield)
 	var tw: Tween = create_tween()
 	tw.tween_interval(data.duration)
 	tw.tween_callback(func():
 		player.invincible = false
+		player.invincible_timer = 0.0
 		shield.queue_free()
 	)
