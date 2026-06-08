@@ -65,15 +65,6 @@ func _process(delta: float) -> void:
 
 	game_timer += delta
 
-	if boss_triggered_by_objectives:
-		timer += delta
-		if timer >= next_spawn:
-			timer = 0.0
-			_spawn_enemy()
-			var t: float = min(game_timer / ramp_duration, 1.0)
-			next_spawn = lerp(spawn_interval_min, spawn_interval_max, t)
-		return
-
 	if game_timer >= boss_spawn_time and not boss_spawned:
 		_spawn_boss()
 		return
