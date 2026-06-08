@@ -1,14 +1,29 @@
 {
   "lin_jin": {
     "id": "lin_jin", "name_cn": "林锦", "name_en": "Lin Jin",
-    "title": "符咒黑客", "description": "将传统符咒改写为可执行脚本，用电子符纸入侵异常。",
-    "max_hp": 100, "move_speed": 220.0, "base_damage": 14,
-    "attack_interval": 0.4, "attack_range": 540.0, "projectile_speed": 440.0, "color": "dodgerblue"
+    "title": "符咒黑客", "color": "dodgerblue",
+    "description": "将传统符咒改写为可执行脚本，用电子符纸入侵异常。远程输出，穿透攻击。",
+    "max_hp": 90, "move_speed": 210.0, "base_damage": 12,
+    "attack_interval": 0.45, "attack_range": 540.0, "projectile_speed": 440.0,
+    "starter_skill": "red_talisman_pulse",
+    "passive_desc": "远程穿透强化"
   },
   "xu_zhaye": {
     "id": "xu_zhaye", "name_cn": "徐招夜", "name_en": "Xu Zhaoye",
-    "title": "民俗调查员", "description": "民俗学研究者，以纸人、铜钱、八卦镜等传统法器应对异常。召唤物更多，生存能力更强。",
-    "max_hp": 140, "move_speed": 190.0, "base_damage": 10,
-    "attack_interval": 0.55, "attack_range": 460.0, "projectile_speed": 380.0, "color": "darkgoldenrod"
+    "title": "民俗调查员", "color": "darkgoldenrod",
+    "description": "民俗学研究者，以纸人、铜钱、八卦镜等传统法器应对异常。召唤物主导，高生存。",
+    "max_hp": 130, "move_speed": 185.0, "base_damage": 9,
+    "attack_interval": 0.55, "attack_range": 460.0, "projectile_speed": 370.0,
+    "starter_skill": "paper_effigy_decoy",
+    "passive_desc": "召唤物+2上限"
+  },
+  "bai_zhi": {
+    "id": "bai_zhi", "name_cn": "白纸", "name_en": "Bai Zhi",
+    "title": "半感染特工", "color": "crimson",
+    "description": "曾接触未知异常物，身体不可逆变异。高风险高回报，近战吸血。",
+    "max_hp": 110, "move_speed": 195.0, "base_damage": 15,
+    "attack_interval": 0.5, "attack_range": 380.0, "projectile_speed": 400.0,
+    "starter_skill": "black_iris_gaze",
+    "passive_desc": "击杀回复 12% HP"
   }
 }

@@ -30,7 +30,7 @@ func _save_default() -> void:
 		"version": 1,
 		"resources": {"anomaly_essence": 0, "broken_circuit": 0},
 		"completed_cases": [],
-		"unlocked_characters": ["lin_jin", "xu_zhaye"],
+		"unlocked_characters": ["lin_jin", "xu_zhaye", "bai_zhi"],
 		"selected_character": "lin_jin",
 		"permanent_upgrades": {}
 	}

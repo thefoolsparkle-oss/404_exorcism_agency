@@ -9,6 +9,8 @@ var experience: int = 0
 var experience_to_next: int = 30
 var invincible: bool = false
 var invincible_timer: float = 0.0
+var has_lifesteal: bool = false
+var lifesteal_pct: float = 0.0
 
 func _ready() -> void:
 	_apply_character_stats()

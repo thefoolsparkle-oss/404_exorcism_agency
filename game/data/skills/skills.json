@@ -1,72 +1,117 @@
 {
   "red_talisman_pulse": {
-    "id": "red_talisman_pulse",
-    "name_cn": "红符脉冲",
-    "name_en": "Red Talisman Pulse",
-    "description_cn": "投射物穿透 +1 名敌人",
-    "description_en": "Projectiles pierce +1 enemy",
-    "type": "passive",
-    "max_tier": 2,
+    "id": "red_talisman_pulse", "name_cn": "红符脉冲", "name_en": "Red Talisman Pulse",
+    "description_cn": "投射物穿透 +1 名敌人", "type": "passive", "max_tier": 3,
+    "icon_color": "crimson", "character": "lin_jin",
     "tiers": [
-      {"pierce_bonus": 1, "damage_mult": 1.0},
-      {"pierce_bonus": 2, "damage_mult": 1.2}
-    ],
-    "icon_color": "crimson"
+      {"pierce_bonus": 1, "damage_mult": 1.0, "name": "脉冲"},
+      {"pierce_bonus": 2, "damage_mult": 1.2, "name": "超载电池", "evolve_item": "overload_battery"},
+      {"pierce_bonus": 3, "damage_mult": 1.5, "multishot": 2, "name": "赤雷暴雨", "evolve_item": "crimson_thunder"}
+    ]
   },
   "azure_talisman_chain": {
-    "id": "azure_talisman_chain",
-    "name_cn": "青符锁链",
-    "name_en": "Azure Talisman Chain",
-    "description_cn": "每隔 5 秒连锁闪电弹跳 3 次",
-    "description_en": "Every 5s, chain lightning bounces 3 times",
-    "type": "active_interval",
-    "max_tier": 2,
+    "id": "azure_talisman_chain", "name_cn": "青符锁链", "name_en": "Azure Talisman Chain",
+    "description_cn": "每隔 5 秒连锁闪电弹跳 3 次", "type": "active_interval", "max_tier": 3,
+    "icon_color": "dodgerblue",
     "tiers": [
       {"interval": 5.0, "bounces": 3, "damage": 15, "range": 200},
-      {"interval": 4.0, "bounces": 5, "damage": 25, "range": 300}
-    ],
-    "icon_color": "dodgerblue"
+      {"interval": 4.5, "bounces": 4, "damage": 22, "range": 250},
+      {"interval": 3.5, "bounces": 6, "damage": 35, "range": 350}
+    ]
   },
   "thunder_seal_array": {
-    "id": "thunder_seal_array",
-    "name_cn": "雷鸣符阵",
-    "name_en": "Thunder Seal Array",
-    "description_cn": "每隔 8 秒在身边释放雷电环",
-    "description_en": "Every 8s, release a lightning ring around you",
-    "type": "active_interval",
-    "max_tier": 2,
+    "id": "thunder_seal_array", "name_cn": "雷鸣符阵", "name_en": "Thunder Seal Array",
+    "description_cn": "每隔 8 秒在身边释放雷电环", "type": "active_interval", "max_tier": 3,
+    "icon_color": "gold",
     "tiers": [
       {"interval": 8.0, "damage": 25, "radius": 150},
-      {"interval": 6.0, "damage": 40, "radius": 220}
-    ],
-    "icon_color": "gold"
+      {"interval": 7.0, "damage": 35, "radius": 200},
+      {"interval": 5.5, "damage": 55, "radius": 260}
+    ]
   },
   "will_o_wisp_drone": {
-    "id": "will_o_wisp_drone",
-    "name_cn": "鬼火无人机",
-    "name_en": "Will-o-Wisp Drone",
-    "description_cn": "召唤无人机自动攻击附近敌人",
-    "description_en": "Summon a drone that auto-attacks nearby enemies",
-    "type": "summon",
-    "max_tier": 2,
+    "id": "will_o_wisp_drone", "name_cn": "鬼火无人机", "name_en": "Will-o-Wisp Drone",
+    "description_cn": "召唤无人机自动攻击附近敌人", "type": "summon", "max_tier": 3,
+    "icon_color": "limegreen",
     "tiers": [
       {"count": 1, "damage": 8, "attack_interval": 1.0, "range": 250},
-      {"count": 2, "damage": 12, "attack_interval": 0.7, "range": 350}
-    ],
-    "icon_color": "limegreen"
+      {"count": 2, "damage": 12, "attack_interval": 0.8, "range": 320, "name": "黑客罗盘", "evolve_item": "hacker_compass"},
+      {"count": 3, "damage": 18, "attack_interval": 0.6, "range": 400, "name": "鬼火群", "evolve_item": "wisp_swarm"}
+    ]
   },
   "firewall_barrier": {
-    "id": "firewall_barrier",
-    "name_cn": "防火墙障",
-    "name_en": "Firewall Barrier",
-    "description_cn": "每隔 15 秒生成护盾，持续 3 秒",
-    "description_en": "Every 15s, gain a shield for 3s",
-    "type": "active_interval",
-    "max_tier": 2,
+    "id": "firewall_barrier", "name_cn": "防火墙障", "name_en": "Firewall Barrier",
+    "description_cn": "每隔 15 秒生成护盾，持续 3 秒", "type": "active_interval", "max_tier": 2,
+    "icon_color": "darkorange",
     "tiers": [
       {"interval": 15.0, "duration": 3.0},
-      {"interval": 10.0, "duration": 5.0}
-    ],
-    "icon_color": "darkorange"
+      {"interval": 11.0, "duration": 5.0}
+    ]
+  },
+  "data_lightning": {
+    "id": "data_lightning", "name_cn": "数据雷击", "name_en": "Data Lightning",
+    "description_cn": "每隔 10 秒雷击随机敌人，造成高额伤害", "type": "active_interval", "max_tier": 2,
+    "icon_color": "cyan",
+    "tiers": [
+      {"interval": 10.0, "damage": 40, "targets": 1},
+      {"interval": 8.0, "damage": 60, "targets": 2}
+    ]
+  },
+  "paper_effigy_decoy": {
+    "id": "paper_effigy_decoy", "name_cn": "纸人诱饵", "name_en": "Paper Effigy Decoy",
+    "description_cn": "召唤纸人吸引敌人，爆炸造成范围伤害", "type": "summon", "max_tier": 3,
+    "icon_color": "ivory", "character": "xu_zhaye",
+    "tiers": [
+      {"count": 1, "damage": 20, "lifetime": 8.0, "detonate_radius": 120},
+      {"count": 2, "damage": 30, "lifetime": 10.0, "detonate_radius": 150, "name": "香灰瓶", "evolve_item": "incense_ash_bottle"},
+      {"count": 4, "damage": 45, "lifetime": 12.0, "detonate_radius": 200, "name": "纸人夜行", "evolve_item": "night_parade"}
+    ]
+  },
+  "coin_sword_array": {
+    "id": "coin_sword_array", "name_cn": "铜钱剑阵", "name_en": "Coin Sword Array",
+    "description_cn": "围绕玩家旋转的铜钱剑，对接触敌人造成伤害", "type": "summon", "max_tier": 3,
+    "icon_color": "sandybrown", "character": "xu_zhaye",
+    "tiers": [
+      {"count": 2, "damage": 12, "orbit_speed": 3.0, "orbit_radius": 90},
+      {"count": 3, "damage": 18, "orbit_speed": 3.5, "orbit_radius": 100, "name": "门神木牌", "evolve_item": "door_guardian"},
+      {"count": 5, "damage": 28, "orbit_speed": 4.0, "orbit_radius": 120, "name": "镇宅剑域", "evolve_item": "sword_domain"}
+    ]
+  },
+  "incense_ash_field": {
+    "id": "incense_ash_field", "name_cn": "香灰领域", "name_en": "Incense Ash Field",
+    "description_cn": "留下香灰轨迹，减速并持续伤害敌人", "type": "active_interval", "max_tier": 2,
+    "icon_color": "lightgray",
+    "tiers": [
+      {"interval": 12.0, "duration": 4.0, "damage_per_sec": 10, "slow": 0.4, "radius": 120},
+      {"interval": 10.0, "duration": 6.0, "damage_per_sec": 18, "slow": 0.5, "radius": 160}
+    ]
+  },
+  "black_iris_gaze": {
+    "id": "black_iris_gaze", "name_cn": "黑瞳凝视", "name_en": "Black Iris Gaze",
+    "description_cn": "对 Boss/精英造成额外伤害，每 12 秒释放一次凝视", "type": "active_interval", "max_tier": 3,
+    "icon_color": "black", "character": "bai_zhi",
+    "tiers": [
+      {"interval": 12.0, "damage": 50, "heal_pct": 0.05},
+      {"interval": 10.0, "damage": 80, "heal_pct": 0.08, "name": "腐化血清", "evolve_item": "corruption_serum"},
+      {"interval": 8.0, "damage": 120, "heal_pct": 0.12, "name": "死亡预兆", "evolve_item": "death_foresight"}
+    ]
+  },
+  "whisper_circuit": {
+    "id": "whisper_circuit", "name_cn": "低语回路", "name_en": "Whisper Circuit",
+    "description_cn": "对所有敌人施加伤害加深效果", "type": "passive", "max_tier": 2,
+    "icon_color": "purple",
+    "tiers": [
+      {"damage_taken_mult": 1.15},
+      {"damage_taken_mult": 1.35}
+    ]
+  },
+  "old_camera_flash": {
+    "id": "old_camera_flash", "name_cn": "旧相机闪光", "name_en": "Old Camera Flash",
+    "description_cn": "每 20 秒闪光致盲附近敌人，并揭示隐藏物品", "type": "active_interval", "max_tier": 2,
+    "icon_color": "white",
+    "tiers": [
+      {"interval": 20.0, "blind_duration": 2.0, "radius": 300},
+      {"interval": 16.0, "blind_duration": 3.5, "radius": 420}
+    ]
   }
 }

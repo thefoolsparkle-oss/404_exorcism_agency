@@ -27,7 +27,8 @@ func _populate_characters() -> void:
 	char_select.clear()
 	for char_id in SaveManager.data.unlocked_characters:
 		var data: Dictionary = characters_data.get(char_id, {})
-		char_select.add_item(data.get("name_cn", char_id))
+		var label: String = "%s — %s" % [data.get("name_cn", char_id), data.get("title", "")]
+		char_select.add_item(label)
 		if char_id == SaveManager.data.selected_character:
 			char_select.select(char_select.item_count - 1)
 
