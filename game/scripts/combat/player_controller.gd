@@ -11,9 +11,37 @@ var invincible: bool = false
 var invincible_timer: float = 0.0
 
 func _ready() -> void:
-	current_hp = max_hp
+	_apply_character_stats()
 	EventBus.player_health_changed.emit(current_hp, max_hp)
 	$hitbox.body_entered.connect(_on_hitbox_body_entered)
+
+func _apply_character_stats() -> void:
+	var char_data: Dictionary = DataLoader.load_json("res://data/characters/characters.json")
+	var selected: String = SaveManager.data.selected_character
+	var stats: Dictionary = char_data.get(selected, {})
+	if stats.is_empty():
+		current_hp = max_hp
+		return
+	if stats.has("max_hp"):
+		max_hp = stats.max_hp
+	if stats.has("move_speed"):
+		move_speed = stats.move_speed
+	current_hp = max_hp
+	if stats.has("color"):
+		$visual.color = Color(stats.color)
+
+	var weapon: Node2D = $weapon_system
+	if weapon:
+		if stats.has("base_damage"):
+			weapon.base_damage = stats.base_damage
+			weapon.current_damage = stats.base_damage
+		if stats.has("attack_interval"):
+			weapon.base_attack_interval = stats.attack_interval
+			weapon.current_attack_interval = stats.attack_interval
+		if stats.has("attack_range"):
+			weapon.attack_range = stats.attack_range
+		if stats.has("projectile_speed"):
+			weapon.projectile_speed = stats.projectile_speed
 
 func _physics_process(delta: float) -> void:
 	if invincible_timer > 0:
@@ -25,7 +53,6 @@ func _physics_process(delta: float) -> void:
 	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	velocity = input_dir * move_speed
 	move_and_slide()
-
 	global_position.x = clamp(global_position.x, 50, 3790)
 	global_position.y = clamp(global_position.y, 50, 2110)
 
