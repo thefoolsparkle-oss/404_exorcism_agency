@@ -11,7 +11,7 @@
     ],
     "boss_id": "grey_line_conductor", "boss_stats": {"max_hp": 350, "move_speed": 80, "contact_damage": 20},
     "enemy_pool": ["empty_seat_passenger", "reverse_walker"],
-    "spawn_interval_min": 3.5, "spawn_interval_max": 2.0, "ramp_duration": 120.0, "boss_spawn_time": 90.0,
+    "spawn_interval_min": 3.5, "spawn_interval_max": 2.0, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
     "reward_items": ["broken_monthly_pass", "low_frequency_broadcast_module"],
     "archive_text": "经确认，灰线地铁在1987年已全线停运。如有市民声称乘坐过灰线列车，请立即联系404事务所。"
   },
@@ -26,7 +26,7 @@
     ],
     "boss_id": "station_shadow", "boss_stats": {"max_hp": 400, "move_speed": 85, "contact_damage": 22},
     "enemy_pool": ["empty_seat_passenger", "shadow_fragment", "reverse_walker"],
-    "spawn_interval_min": 3.0, "spawn_interval_max": 1.8, "ramp_duration": 120.0, "boss_spawn_time": 90.0,
+    "spawn_interval_min": 3.0, "spawn_interval_max": 1.8, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
     "reward_items": ["rusted_station_key", "seawater_sample"],
     "archive_text": "灰线地铁官方图纸显示仅有12个车站。关于「海水气味」，勘测显示最深处仅为地下30米。"
   },
@@ -42,7 +42,7 @@
     ],
     "boss_id": "mirror_keeper", "boss_stats": {"max_hp": 500, "move_speed": 100, "contact_damage": 25},
     "enemy_pool": ["empty_seat_passenger", "mirror_clone"],
-    "spawn_interval_min": 3.0, "spawn_interval_max": 1.6, "ramp_duration": 120.0, "boss_spawn_time": 90.0,
+    "spawn_interval_min": 3.0, "spawn_interval_max": 1.6, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
     "reward_items": ["broken_mirror_piece", "name_tag"],
     "archive_text": "新天地站换乘通道全长47米。测量同一通道结果为128米。镜面均非站方安装。"
   },
@@ -57,7 +57,7 @@
     ],
     "boss_id": "broadcast_entity", "boss_stats": {"max_hp": 550, "move_speed": 90, "contact_damage": 25},
     "enemy_pool": ["empty_seat_passenger", "charmed_passenger", "low_frequency_shade"],
-    "spawn_interval_min": 2.8, "spawn_interval_max": 1.4, "ramp_duration": 120.0, "boss_spawn_time": 90.0,
+    "spawn_interval_min": 2.8, "spawn_interval_max": 1.4, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
     "reward_items": ["broken_broadcast_chip", "voice_recorder"],
     "archive_text": "「点名广播」语音不属于任何已知播音员。被念到名字的人在地铁内曾大声说出全名。"
   },
@@ -72,7 +72,7 @@
     ],
     "boss_id": "reverse_conductor", "boss_stats": {"max_hp": 650, "move_speed": 130, "contact_damage": 30},
     "enemy_pool": ["reverse_walker", "time_echo", "charmed_passenger"],
-    "spawn_interval_min": 2.5, "spawn_interval_max": 1.2, "ramp_duration": 120.0, "boss_spawn_time": 90.0,
+    "spawn_interval_min": 2.5, "spawn_interval_max": 1.2, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
     "reward_items": ["reversed_pocket_watch", "old_news_clip"],
     "archive_text": "逆行列车首次检测在1997年灰线事故当天——35名乘客失踪。不要在逆行列车经过时查看时间。"
   }

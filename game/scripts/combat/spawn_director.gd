@@ -135,7 +135,10 @@ func _spawn_boss() -> void:
 		boss_scene = preload("res://scenes/combat/boss/grey_line_conductor.tscn")
 	if boss_scene:
 		var boss: Node2D = boss_scene.instantiate()
-		boss.global_position = Vector2(1920, 300)
+		var angle: float = randf_range(0, TAU)
+		boss.global_position = player.global_position + Vector2.RIGHT.rotated(angle) * 400
+		boss.global_position.x = clamp(boss.global_position.x, 100, 3740)
+		boss.global_position.y = clamp(boss.global_position.y, 100, 2060)
 		if boss.has_method("set_player_ref"):
 			boss.set_player_ref(player)
 		var boss_stats: Dictionary = current_case.get("boss_stats", {})

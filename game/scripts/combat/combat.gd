@@ -75,7 +75,7 @@ func _on_experience_dropped(position: Vector2, amount: int) -> void:
 	$experience_orbs.add_child(orb)
 
 func _on_all_objectives_done() -> void:
-	get_tree().current_scene.get_node("spawn_director")._spawn_boss()
+	$spawn_director._spawn_boss()
 
 func get_current_case() -> Dictionary:
 	return current_case

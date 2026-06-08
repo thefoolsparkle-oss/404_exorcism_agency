@@ -1,7 +1,7 @@
 extends Area2D
 
-@export var objective_type: String = "collect"   # collect / disable
-@export var objective_target: String = ""          # e.g. "time_ticket"
+@export var objective_type: String = "collect"
+@export var objective_target: String = ""
 @export var label_text: String = "物品"
 
 enum State { IDLE, PICKED_UP, DISABLED }
@@ -19,22 +19,16 @@ var disable_time: float = 1.5
 func _ready() -> void:
 	label.text = label_text
 	if objective_type == "disable":
-		progress_bar.visible = false
-		prompt_label.text = "按 E 关闭"
+		prompt_label.text = "按住 E 关闭"
 		prompt_label.visible = false
-	else:
+		visual.color = Color(0.8, 0.3, 0.8, 0.9)
 		progress_bar.visible = false
-		prompt_label.visible = false
-
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 
 func _on_body_entered(body: Node2D) -> void:
-	if not body.is_in_group("player"):
+	if not body.is_in_group("player") or state != State.IDLE:
 		return
-	if state != State.IDLE:
-		return
-
 	if objective_type == "collect":
 		_activate(body)
 	else:
@@ -50,30 +44,27 @@ func _on_body_exited(body: Node2D) -> void:
 		progress_bar.visible = false
 
 func _process(delta: float) -> void:
-	if state != State.IDLE:
+	if state != State.IDLE or not player_nearby or objective_type != "disable":
 		return
-	if objective_type == "disable" and player_nearby:
-		if Input.is_action_pressed("interact"):
-			disable_progress += delta
-			progress_bar.visible = true
-			progress_bar.value = disable_progress / disable_time * 100
-			if disable_progress >= disable_time:
-				_activate(null)
-		else:
-			disable_progress = max(0.0, disable_progress - delta * 2.0)
-			progress_bar.value = disable_progress / disable_time * 100
-			if disable_progress <= 0:
-				progress_bar.visible = false
+	if Input.is_action_pressed("interact"):
+		disable_progress += delta
+		progress_bar.visible = true
+		progress_bar.value = disable_progress / disable_time * 100
+		if disable_progress >= disable_time:
+			_activate(null)
+	else:
+		disable_progress = max(0.0, disable_progress - delta * 2.0)
+		progress_bar.value = disable_progress / disable_time * 100
+		if disable_progress <= 0:
+			progress_bar.visible = false
 
 func _activate(_body: Node2D) -> void:
 	if state != State.IDLE:
 		return
 	state = State.PICKED_UP if objective_type == "collect" else State.DISABLED
-
 	var tracker = get_tree().current_scene.get_node_or_null("objective_tracker")
 	if tracker:
 		tracker.report_event(objective_type, objective_target, 1)
-
 	prompt_label.visible = false
 	progress_bar.visible = false
 	var tw: Tween = create_tween()
