@@ -28,6 +28,11 @@ func _ready() -> void:
 	else:
 		objectives_label.visible = false
 
+	var player = get_tree().current_scene.get_node_or_null("entities/player")
+	if player:
+		_on_player_health_changed(player.current_hp, player.max_hp)
+		level_label.text = "Lv.%d" % player.level
+
 func _on_combat_started() -> void:
 	boss_hp.visible = false
 	for child in skill_icons.get_children():
