@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/enemy_ai.gd" id="1_enemy_ai"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 18.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 20.0
+
+[node name="EnemyBase" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_enemy_ai")
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="visual" type="ColorRect" parent="."]
+color = Color(0.4, 0.4, 0.4, 1)
+size = Vector2(30, 30)
+position = Vector2(-15, -15)
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="hitbox_collision" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_hit")

@@ -1,0 +1,49 @@
+{
+  "empty_seat_passenger": {
+    "id": "empty_seat_passenger",
+    "name_cn": "空座乘客",
+    "name_en": "Empty-Seat Passenger",
+    "hp": 30,
+    "move_speed": 150.0,
+    "damage": 15,
+    "contact_damage": true,
+    "attack_range": 0,
+    "attack_cooldown": 0.0,
+    "projectile_speed": 0,
+    "experience_drop": 10,
+    "size": 30,
+    "color": "dimgray"
+  },
+  "low_frequency_shade": {
+    "id": "low_frequency_shade",
+    "name_cn": "低频噪音影",
+    "name_en": "Low-Frequency Noise Shade",
+    "hp": 50,
+    "move_speed": 80.0,
+    "damage": 20,
+    "contact_damage": false,
+    "attack_range": 400.0,
+    "attack_cooldown": 1.5,
+    "projectile_speed": 250.0,
+    "experience_drop": 15,
+    "size": 36,
+    "color": "darkviolet"
+  },
+  "reverse_walker": {
+    "id": "reverse_walker",
+    "name_cn": "逆行客",
+    "name_en": "Reverse Walker",
+    "hp": 40,
+    "move_speed": 120.0,
+    "damage": 25,
+    "contact_damage": true,
+    "attack_range": 0,
+    "attack_cooldown": 0.0,
+    "projectile_speed": 0,
+    "experience_drop": 15,
+    "size": 32,
+    "color": "darkred",
+    "special": "teleport",
+    "teleport_cooldown": 3.0
+  }
+}
