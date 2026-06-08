@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://d8q3vn2t5l1o3"]
+
+[ext_resource type="Script" path="res://scripts/combat/player_controller.gd" id="1_player"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 22.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pickup"]
+radius = 60.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_player")
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_body")
+
+[node name="visual" type="ColorRect" parent="."]
+color = Color(0.2, 0.5, 0.9, 1)
+size = Vector2(40, 40)
+position = Vector2(-20, -20)
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="hitbox_collision" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("CircleShape2D_hit")
+
+[node name="pickup_area" type="Area2D" parent="."]
+
+[node name="pickup_collision" type="CollisionShape2D" parent="pickup_area"]
+shape = SubResource("CircleShape2D_pickup")
