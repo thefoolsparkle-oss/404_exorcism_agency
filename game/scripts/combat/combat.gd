@@ -27,23 +27,19 @@ func _process(_delta: float) -> void:
 func _show_pause_menu() -> void:
 	if GameManager.current_state != GameManager.GameState.COMBAT_ACTIVE:
 		return
+	get_tree().paused = false
 	var popup: AcceptDialog = AcceptDialog.new()
 	popup.title = "暂停"
 	popup.dialog_text = "是否返回事务所？"
 	popup.confirmed.connect(func():
-		get_tree().paused = false
 		SaveManager.save()
 		get_tree().change_scene_to_file("res://scenes/office/office_main.tscn")
 	)
 	popup.canceled.connect(func():
-		get_tree().paused = false
-	)
-	popup.close_requested.connect(func():
-		get_tree().paused = false
+		pass
 	)
 	get_tree().current_scene.add_child(popup)
 	popup.popup_centered()
-	get_tree().paused = true
 
 func _on_experience_dropped(position: Vector2, amount: int) -> void:
 	var orb: Area2D = xp_orb_scene.instantiate()

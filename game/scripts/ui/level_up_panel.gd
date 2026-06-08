@@ -1,7 +1,6 @@
 extends CanvasLayer
 
 @onready var card_container: HBoxContainer = $panel/vbox/cards
-@onready var panel: Panel = $panel
 
 var skill_card_scene: PackedScene = preload("res://scenes/ui/skill_card.tscn")
 var available_choices: Array[String] = []
@@ -9,6 +8,7 @@ var skill_data: Dictionary = {}
 var acquired_skills: Dictionary = {}
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
 	skill_data = DataLoader.load_json("res://data/skills/skills.json")
 	EventBus.combat_paused.connect(_on_combat_paused)
