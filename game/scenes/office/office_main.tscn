@@ -1,72 +1,92 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/office/office_main.gd" id="1_office"]
 [ext_resource type="Script" path="res://scripts/ui/office_case_list.gd" id="2_case_list"]
 [ext_resource type="PackedScene" path="res://scenes/ui/case_briefing.tscn" id="3_briefing"]
-[ext_resource type="PackedScene" path="res://scenes/ui/case_select_card.tscn" id="4_card"]
 
 [node name="Office" type="Node2D"]
 script = ExtResource("1_office")
 
 [node name="ground" type="ColorRect" parent="."]
 color = Color(0.1, 0.08, 0.14, 1)
-size = Vector2(1920, 1080)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="TerminalPanel" type="Panel" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -200.0
-offset_right = 250.0
-offset_bottom = 200.0
-
-[node name="VBox" type="VBoxContainer" parent="CanvasLayer/TerminalPanel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = 25.0
-offset_right = -30.0
-offset_bottom = -25.0
-theme_override_constants/separation = 12
 
-[node name="Title" type="Label" parent="CanvasLayer/TerminalPanel/VBox"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 40
+
+[node name="MainVBox" type="VBoxContainer" parent="CanvasLayer/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Title" type="Label" parent="CanvasLayer/Margin/MainVBox"]
 layout_mode = 2
 text = "404 除灵事务所"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 38
 
-[node name="terminal_button" type="Button" parent="CanvasLayer/TerminalPanel/VBox"]
+[node name="Subtitle" type="Label" parent="CanvasLayer/Margin/MainVBox"]
+layout_mode = 2
+text = "New Hu City Anomaly Files"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.5, 0.5, 0.6, 1)
+
+[node name="Separator1" type="HSeparator" parent="CanvasLayer/Margin/MainVBox"]
+layout_mode = 2
+
+[node name="CharacterSection" type="VBoxContainer" parent="CanvasLayer/Margin/MainVBox"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="CharLabel" type="Label" parent="CanvasLayer/Margin/MainVBox/CharacterSection"]
+layout_mode = 2
+text = "选择调查员:"
+theme_override_font_sizes/font_size = 16
+
+[node name="char_select" type="OptionButton" parent="CanvasLayer/Margin/MainVBox/CharacterSection"]
+layout_mode = 2
+
+[node name="Separator2" type="HSeparator" parent="CanvasLayer/Margin/MainVBox"]
+layout_mode = 2
+
+[node name="terminal_button" type="Button" parent="CanvasLayer/Margin/MainVBox"]
 layout_mode = 2
 text = "案件终端"
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 18
 
-[node name="char_select" type="OptionButton" parent="CanvasLayer/TerminalPanel/VBox"]
-layout_mode = 2
-
-[node name="archive_button" type="Button" parent="CanvasLayer/TerminalPanel/VBox"]
+[node name="archive_button" type="Button" parent="CanvasLayer/Margin/MainVBox"]
 layout_mode = 2
 text = "档案库"
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 18
 
-[node name="QuitButton" type="Button" parent="CanvasLayer/TerminalPanel/VBox"]
+[node name="Spacer" type="Control" parent="CanvasLayer/Margin/MainVBox"]
 layout_mode = 2
-text = "退出游戏"
+size_flags_vertical = 3
 
-[node name="ResourcesLabel" type="Label" parent="CanvasLayer"]
-anchors_preset = 1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -200.0
-offset_top = 900.0
-offset_right = 200.0
-offset_bottom = 930.0
+[node name="ResourcesLabel" type="Label" parent="CanvasLayer/Margin/MainVBox"]
+layout_mode = 2
 text = "异常精华: 0 | 破损回路: 0"
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 14
+
+[node name="Separator3" type="HSeparator" parent="CanvasLayer/Margin/MainVBox"]
+layout_mode = 2
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/Margin/MainVBox"]
+layout_mode = 2
+text = "退出游戏"
 
 [node name="CaseListUI" type="Node2D" parent="CanvasLayer"]
 script = ExtResource("2_case_list")
@@ -78,7 +98,7 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -280.0
-offset_top = -250.0
+offset_top = -260.0
 offset_right = 280.0
 offset_bottom = 300.0
 
@@ -108,5 +128,5 @@ text = "关闭"
 
 [node name="CaseBriefing" parent="CanvasLayer" instance=ExtResource("3_briefing")]
 
-[connection signal="pressed" from="CanvasLayer/TerminalPanel/VBox/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Margin/MainVBox/QuitButton" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/CaseListUI/Panel/VBoxContainer/CloseBtn" to="CanvasLayer/CaseListUI" method="_on_close"]
