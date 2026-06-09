@@ -54,6 +54,6 @@ zoom = Vector2(0.8, 0.8)
 
 [node name="ui_layer" type="CanvasLayer" parent="."]
 
-[node name="hud" parent="ui_layer" instance=ExtResource("7_hud")]
-[node name="level_up_panel" parent="ui_layer" instance=ExtResource("6_level_up_panel")]
-[node name="result_panel" parent="ui_layer" instance=ExtResource("8_result_panel")]
+[node name="hud" parent="ui_layer" instance=ExtResource("8_hud")]
+[node name="level_up_panel" parent="ui_layer" instance=ExtResource("7_level_up_panel")]
+[node name="result_panel" parent="ui_layer" instance=ExtResource("9_result_panel")]

@@ -7,6 +7,7 @@ extends CharacterBody2D
 var current_hp: int
 var phase: int = 1
 var enraged: bool = false
+var is_dashing: bool = false
 
 var ticket_punch_cooldown: float = 3.0
 var ticket_punch_timer: float = 1.0
@@ -38,8 +39,9 @@ func _physics_process(delta: float) -> void:
 		return
 	_update_phase()
 	_update_cooldowns(delta)
-	_chase_player()
-	move_and_slide()
+	if not is_dashing:
+		_chase_player()
+		move_and_slide()
 	queue_redraw()
 
 func _draw() -> void:
@@ -51,14 +53,14 @@ func _draw() -> void:
 
 func _update_phase() -> void:
 	var hp_percent: float = float(current_hp) / float(max_hp)
-	if hp_percent <= 0.3:
+	if hp_percent <= 0.3 and phase < 3:
 		phase = 3
 		if not enraged:
 			enraged = true
 			move_speed *= 1.5
 			ticket_punch_cooldown *= 0.7
 			boss_label.text = "BOSS (暴怒)"
-	elif hp_percent <= 0.6:
+	elif hp_percent <= 0.6 and phase < 2:
 		phase = 2
 
 func _update_cooldowns(delta: float) -> void:
@@ -87,6 +89,7 @@ func _ticket_punch() -> void:
 	indicator.global_position = global_position - Vector2(150, 30)
 	indicator.rotation = dash_dir.angle()
 	get_tree().current_scene.add_child(indicator)
+	is_dashing = true
 	var tw: Tween = create_tween()
 	tw.tween_interval(0.6)
 	tw.tween_callback(func():
@@ -95,26 +98,25 @@ func _ticket_punch() -> void:
 		var target_pos: Vector2 = global_position + dash_dir * 300
 		dash_tw.tween_property(self, "global_position", target_pos, 0.25)
 		dash_tw.tween_callback(func():
+			is_dashing = false
 			if player.global_position.distance_to(global_position) < 90:
 				player.take_damage(contact_damage * 2)
 		)
 	)
 
 func _summon_passengers() -> void:
-	var count: int = 1
-	for i in range(count):
-		var enemy: CharacterBody2D = enemy_scene.instantiate()
-		enemy.enemy_id = "empty_seat_passenger"
-		var data: Dictionary = enemy_data.get("empty_seat_passenger", {})
-		enemy.max_hp = data.get("hp", 20)
-		enemy.move_speed = data.get("move_speed", 120.0)
-		enemy.damage = data.get("damage", 10)
-		enemy.contact_damage = true
-		enemy.enemy_size = data.get("size", 30.0)
-		enemy.enemy_color = Color(data.get("color", "gray"))
-		enemy.set_player_ref(player)
-		enemy.global_position = global_position + Vector2(randf_range(-150, 150), randf_range(-150, 150))
-		get_tree().current_scene.get_node("entities/enemies").add_child(enemy)
+	var enemy: CharacterBody2D = enemy_scene.instantiate()
+	enemy.enemy_id = "empty_seat_passenger"
+	var data: Dictionary = enemy_data.get("empty_seat_passenger", {})
+	enemy.max_hp = data.get("hp", 20)
+	enemy.move_speed = data.get("move_speed", 120.0)
+	enemy.damage = data.get("damage", 10)
+	enemy.contact_damage = true
+	enemy.enemy_size = data.get("size", 30.0)
+	enemy.enemy_color = Color(data.get("color", "gray"))
+	enemy.set_player_ref(player)
+	enemy.global_position = global_position + Vector2(randf_range(-150, 150), randf_range(-150, 150))
+	get_tree().current_scene.get_node("entities/enemies").add_child(enemy)
 
 func _broadcast_static() -> void:
 	var radius: float = 250.0
@@ -127,11 +129,16 @@ func _broadcast_static() -> void:
 	tw.tween_interval(0.8)
 	tw.tween_callback(func():
 		indicator.queue_free()
+		if not is_instance_valid(player):
+			return
 		if player.global_position.distance_to(global_position) <= radius:
 			player.take_damage(20)
 			var original_speed: float = player.move_speed
 			player.move_speed *= 0.5
-			get_tree().create_timer(2.0).timeout.connect(func(): player.move_speed = original_speed)
+			get_tree().create_timer(2.0).timeout.connect(func():
+				if is_instance_valid(player):
+					player.move_speed = original_speed
+			)
 	)
 
 func take_damage(amount: int) -> void:
@@ -150,6 +157,4 @@ func _die() -> void:
 	VFXManager.death_explosion(global_position, Color.RED)
 	VFXManager.screen_shake(12.0, 0.5)
 	EventBus.boss_defeated.emit()
-	var tw: Tween = create_tween()
-	tw.tween_property(visual, "modulate:a", 0.0, 0.5)
-	tw.tween_callback(queue_free)
+	queue_free()

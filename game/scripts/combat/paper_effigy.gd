@@ -33,8 +33,7 @@ func _attract_enemies() -> void:
 		if not is_instance_valid(enemy):
 			continue
 		if global_position.distance_to(enemy.global_position) < attract_range:
-			if enemy.has_method("_force_target"):
-				enemy.global_position = enemy.global_position.move_toward(global_position, 80.0)
+			enemy.global_position = enemy.global_position.move_toward(global_position, 80.0)
 
 func _on_hit() -> void:
 	_detonate()

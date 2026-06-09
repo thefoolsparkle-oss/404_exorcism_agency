@@ -111,9 +111,7 @@ func take_damage(amount: int) -> void:
 	current_hp -= amount
 	VFXManager.hit_particles(global_position, Color.RED)
 	VFXManager.damage_number(global_position + Vector2(0, -30), amount, Color(1, 0.5, 0.5))
-	var flash_tween: Tween = create_tween()
-	flash_tween.tween_property($visual, "modulate", Color.RED, 0.1)
-	flash_tween.tween_property($visual, "modulate", Color.WHITE, 0.1)
+	queue_redraw()
 	if current_hp <= 0:
 		_die()
 

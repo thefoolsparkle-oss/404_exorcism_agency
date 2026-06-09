@@ -37,7 +37,7 @@ func _populate_choices() -> void:
 		elif acquired_skills[skill_id] < skill_data[skill_id].max_tier:
 			available_choices.append(skill_id)
 
-	while available_choices.size() < 3:
+	while available_choices.size() < 3 and skills.size() > 0:
 		available_choices.append(skills[randi() % skills.size()])
 
 	for i in range(3):
