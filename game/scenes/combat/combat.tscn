@@ -13,7 +13,7 @@
 script = ExtResource("2_combat")
 
 [node name="ground" type="ColorRect" parent="."]
-color = Color(0.08, 0.08, 0.12, 1)
+color = Color(0.9, 0.88, 0.84, 1)
 size = Vector2(3840, 2160)
 
 [node name="border_lines" type="Node2D" parent="."]
