@@ -32,14 +32,14 @@ func _migrate() -> void:
 		data["completed_cases"] = []
 	if not data.has("unlocked_characters"):
 		data["unlocked_characters"] = ["lin_jin", "xu_zhaye", "bai_zhi"]
-	if "xu_zhaye" not in data.unlocked_characters:
-		data.unlocked_characters.append("xu_zhaye")
-	if "bai_zhi" not in data.unlocked_characters:
-		data.unlocked_characters.append("bai_zhi")
 	if not data.has("selected_character"):
 		data["selected_character"] = "lin_jin"
 	if not data.has("permanent_upgrades"):
 		data["permanent_upgrades"] = {}
+	var chars: Array = data["unlocked_characters"]
+	for c in ["xu_zhaye", "bai_zhi"]:
+		if c not in chars:
+			chars.append(c)
 
 func _save_default() -> void:
 	data = {
