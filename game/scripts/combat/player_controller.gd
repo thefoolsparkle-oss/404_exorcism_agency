@@ -65,6 +65,8 @@ func take_damage(amount: int) -> void:
 	if invincible:
 		return
 	current_hp -= amount
+	VFXManager.hit_particles(global_position, Color.BLUE)
+	VFXManager.screen_shake(3.0, 0.08)
 	EventBus.player_health_changed.emit(current_hp, max_hp)
 	invincible_timer = 0.3
 	if current_hp <= 0:

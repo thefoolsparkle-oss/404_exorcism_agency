@@ -132,12 +132,16 @@ func take_damage(amount: int) -> void:
 	if current_hp <= 0:
 		return
 	current_hp -= amount
+	VFXManager.hit_particles(global_position, Color.ORANGE_RED)
+	VFXManager.damage_number(global_position + Vector2(0, -50), amount, Color(1, 0.8, 0.2))
 	hp_bar.value = current_hp
 	EventBus.boss_health_changed.emit(current_hp, max_hp)
 	if current_hp <= 0:
 		_die()
 
 func _die() -> void:
+	VFXManager.death_explosion(global_position, Color.RED)
+	VFXManager.screen_shake(12.0, 0.5)
 	EventBus.boss_defeated.emit()
 	var tw: Tween = create_tween()
 	tw.tween_property(visual, "modulate:a", 0.0, 0.5)

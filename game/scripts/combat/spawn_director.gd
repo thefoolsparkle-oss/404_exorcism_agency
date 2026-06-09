@@ -150,4 +150,5 @@ func _spawn_boss() -> void:
 		if boss_stats.has("contact_damage"):
 			boss.contact_damage = boss_stats.contact_damage
 		enemies_container.add_child(boss)
+		VFXManager.boss_spawn_effect(boss.global_position)
 		EventBus.boss_spawned.emit()

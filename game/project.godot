@@ -27,6 +27,7 @@ GameManager="*res://scripts/core/game_manager.gd"
 DataLoader="*res://scripts/core/data_loader.gd"
 CaseManager="*res://scripts/office/case_manager.gd"
 SaveManager="*res://scripts/core/save_manager.gd"
+VFXManager="*res://scripts/core/vfx_manager.gd"
 
 [display]
 
