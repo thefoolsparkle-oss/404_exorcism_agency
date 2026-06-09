@@ -31,6 +31,10 @@ func _ready() -> void:
 	$visual.visible = false
 
 func _draw() -> void:
+	var tex: Texture2D = AssetLoader.get_enemy_sprite(enemy_id)
+	if tex:
+		draw_texture(tex, -tex.get_width() / 2.0, -tex.get_height() / 2.0)
+		return
 	var s: float = enemy_size
 	var c: Color = enemy_color
 	match enemy_id:

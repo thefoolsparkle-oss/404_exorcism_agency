@@ -43,7 +43,11 @@ func _physics_process(delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	SpriteDrawer.draw_boss(self, Vector2.ZERO, "grey_line_conductor", 120.0, Time.get_ticks_msec() * 0.001)
+	var tex: Texture2D = AssetLoader.get_boss_sprite("grey_line_conductor")
+	if tex:
+		draw_texture(tex, -tex.get_width() / 2.0, -tex.get_height() / 2.0)
+	else:
+		SpriteDrawer.draw_boss(self, Vector2.ZERO, "grey_line_conductor", 120.0, Time.get_ticks_msec() * 0.001)
 
 func _update_phase() -> void:
 	var hp_percent: float = float(current_hp) / float(max_hp)
