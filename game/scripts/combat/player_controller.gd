@@ -17,6 +17,10 @@ func _ready() -> void:
 	EventBus.player_health_changed.emit(current_hp, max_hp)
 	$hitbox.body_entered.connect(_on_hitbox_body_entered)
 
+func _draw() -> void:
+	var selected: String = SaveManager.data.selected_character
+	SpriteDrawer.draw_character(self, Vector2.ZERO, selected, 60.0)
+
 func _apply_character_stats() -> void:
 	var char_data: Dictionary = DataLoader.load_json("res://data/characters/characters.json")
 	var selected: String = SaveManager.data.selected_character

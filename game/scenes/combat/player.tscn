@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d8q3vn2t5l1o3"]
+[gd_scene load_steps=6 format=3 uid="uid://d8q3vn2t5l1o3"]
 
 [ext_resource type="Script" path="res://scripts/combat/player_controller.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/combat/weapon_system.gd" id="2_weapon"]
@@ -19,10 +19,13 @@ script = ExtResource("1_player")
 [node name="collision_shape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_body")
 
+[node name="sprite" type="Node2D" parent="."]
+
 [node name="visual" type="ColorRect" parent="."]
 color = Color(0.2, 0.5, 0.9, 1)
 size = Vector2(40, 40)
 position = Vector2(-20, -20)
+visible = false
 
 [node name="weapon_system" type="Node2D" parent="."]
 script = ExtResource("2_weapon")

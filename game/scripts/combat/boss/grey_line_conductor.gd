@@ -40,8 +40,10 @@ func _physics_process(delta: float) -> void:
 	_update_cooldowns(delta)
 	_chase_player()
 	move_and_slide()
-	var pulse: float = 1.0 + sin(Time.get_ticks_msec() * 0.004) * 0.15
-	visual.modulate = Color(enraged and 1.0 or 0.85, 0.25, 0.2, 1) * pulse
+	queue_redraw()
+
+func _draw() -> void:
+	SpriteDrawer.draw_boss(self, Vector2.ZERO, "grey_line_conductor", 120.0, Time.get_ticks_msec() * 0.001)
 
 func _update_phase() -> void:
 	var hp_percent: float = float(current_hp) / float(max_hp)
