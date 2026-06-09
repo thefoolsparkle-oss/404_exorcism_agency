@@ -6,7 +6,7 @@
 script = ExtResource("1_briefing")
 
 [node name="DimBackground" type="ColorRect" parent="."]
-color = Color(0, 0, 0, 0.6)
+color = Color(0, 0, 0, 0.7)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,43 +17,47 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -370.0
-offset_top = -280.0
-offset_right = 370.0
-offset_bottom = 280.0
+offset_left = -380.0
+offset_top = -285.0
+offset_right = 380.0
+offset_bottom = 285.0
 
 [node name="vbox" type="VBoxContainer" parent="panel"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 25.0
-offset_top = 20.0
-offset_right = -25.0
-offset_bottom = -20.0
+offset_left = 28.0
+offset_top = 22.0
+offset_right = -28.0
+offset_bottom = -22.0
 theme_override_constants/separation = 10
 
 [node name="title_label" type="Label" parent="panel/vbox"]
 layout_mode = 2
 text = "案件标题"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 26
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.9, 0.3, 0.2, 1)
 
 [node name="threat_label" type="Label" parent="panel/vbox"]
 layout_mode = 2
 text = "威胁等级: - | 区域: -"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.6, 0.6, 0.65, 1)
 
 [node name="briefing_label" type="Label" parent="panel/vbox"]
 layout_mode = 2
 text = "案件简报"
 autowrap_mode = 3
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.85, 0.85, 0.88, 1)
 
 [node name="objectives_label" type="Label" parent="panel/vbox"]
 layout_mode = 2
 text = "任务目标:"
 theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.75, 0.75, 0.8, 1)
 
 [node name="spacer" type="Control" parent="panel/vbox"]
 layout_mode = 2

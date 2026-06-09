@@ -3,17 +3,17 @@
 [ext_resource type="Script" path="res://scripts/ui/skill_card.gd" id="1_skill_card"]
 
 [node name="SkillCard" type="Panel"]
-custom_minimum_size = Vector2(180, 280)
+custom_minimum_size = Vector2(190, 300)
 script = ExtResource("1_skill_card")
 
 [node name="vbox" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -10.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
 theme_override_constants/separation = 8
 
 [node name="icon" type="ColorRect" parent="vbox"]
@@ -25,13 +25,15 @@ color = Color(0.5, 0.5, 0.5, 1)
 layout_mode = 2
 text = "新技能"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.5, 0.5, 0.55, 1)
 
 [node name="name_label" type="Label" parent="vbox"]
 layout_mode = 2
 text = "技能名"
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
 
 [node name="desc_label" type="Label" parent="vbox"]
 layout_mode = 2
@@ -39,6 +41,7 @@ text = "技能描述"
 horizontal_alignment = 1
 autowrap_mode = 3
 theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.65, 0.65, 0.7, 1)
 
 [node name="key_hint" type="Label" parent="vbox"]
 layout_mode = 2

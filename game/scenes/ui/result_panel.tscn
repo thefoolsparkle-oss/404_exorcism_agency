@@ -5,16 +5,22 @@
 [node name="ResultPanel" type="CanvasLayer"]
 script = ExtResource("1_result")
 
+[node name="dim" type="ColorRect" parent="."]
+color = Color(0, 0, 0, 0.6)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="panel" type="Panel" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -260.0
-offset_top = -210.0
-offset_right = 260.0
-offset_bottom = 210.0
+offset_left = -270.0
+offset_top = -220.0
+offset_right = 270.0
+offset_bottom = 220.0
 
 [node name="vbox" type="VBoxContainer" parent="panel"]
 anchors_preset = 15
@@ -30,7 +36,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 text = "任务完成"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 28
 
 [node name="rewards_label" type="Label" parent="panel/vbox"]
 layout_mode = 2
@@ -44,6 +50,7 @@ layout_mode = 2
 text = "击杀: 0 | 等级: 1"
 horizontal_alignment = 1
 theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.7, 0.7, 0.75, 1)
 
 [node name="spacer" type="Control" parent="panel/vbox"]
 layout_mode = 2
@@ -57,6 +64,3 @@ size_flags_horizontal = 4
 [node name="quit_button" type="Button" parent="panel/vbox"]
 layout_mode = 2
 text = "返回事务所"
-
-[connection signal="pressed" from="panel/vbox/restart_button" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="panel/vbox/quit_button" to="." method="_on_quit_pressed"]

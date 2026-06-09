@@ -7,24 +7,20 @@ script = ExtResource("1_hud")
 
 [node name="hp_panel" type="PanelContainer" parent="."]
 anchors_preset = 2
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 20.0
-offset_top = 20.0
+offset_left = 16.0
+offset_top = 14.0
 offset_right = 260.0
-offset_bottom = 60.0
+offset_bottom = 56.0
 
 [node name="vbox_hp" type="VBoxContainer" parent="hp_panel"]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 1
 
 [node name="hp_label" type="Label" parent="hp_panel/vbox_hp"]
 layout_mode = 2
-text = "HP 90/90"
-horizontal_alignment = 1
-theme_override_font_sizes/font_size = 18
+text = "HP 90/90 (100%)"
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 
 [node name="hp_bar" type="ProgressBar" parent="hp_panel/vbox_hp"]
 layout_mode = 2
@@ -35,21 +31,22 @@ anchors_preset = 1
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -100.0
-offset_top = 20.0
+offset_top = 14.0
 offset_right = 100.0
-offset_bottom = 50.0
+offset_bottom = 44.0
 text = "0s"
 horizontal_alignment = 1
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.6, 0.6, 0.65, 1)
 
 [node name="boss_hp" type="ProgressBar" parent="."]
 anchors_preset = 1
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -300.0
-offset_top = 50.0
+offset_top = 48.0
 offset_right = 300.0
-offset_bottom = 80.0
+offset_bottom = 68.0
 visible = false
 show_percentage = false
 
@@ -57,19 +54,20 @@ show_percentage = false
 anchors_preset = 3
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -200.0
-offset_right = 200.0
+offset_left = -220.0
+offset_right = 220.0
 offset_top = 980.0
-offset_bottom = 1040.0
+offset_bottom = 1035.0
 
 [node name="vbox_xp" type="VBoxContainer" parent="xp_panel"]
 layout_mode = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 1
 
 [node name="level_label" type="Label" parent="xp_panel/vbox_xp"]
 layout_mode = 2
 text = "Lv.1"
 horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.7, 0.7, 0.75, 1)
 
 [node name="xp_bar" type="ProgressBar" parent="xp_panel/vbox_xp"]
 layout_mode = 2
@@ -79,14 +77,12 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "0/30"
 horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.5, 0.5, 0.55, 1)
 
 [node name="skill_icons" type="HBoxContainer" parent="."]
 anchors_preset = 4
-anchor_left = 0.0
-anchor_top = 1.0
-anchor_right = 0.0
-anchor_bottom = 1.0
-offset_left = 20.0
+offset_left = 16.0
 offset_top = -70.0
 offset_right = 400.0
 offset_bottom = -10.0
@@ -94,16 +90,13 @@ theme_override_constants/separation = 6
 
 [node name="objectives_panel" type="PanelContainer" parent="."]
 anchors_preset = 2
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 20.0
-offset_top = 80.0
+offset_left = 16.0
+offset_top = 66.0
 offset_right = 300.0
-offset_bottom = 190.0
+offset_bottom = 180.0
 
 [node name="objectives_label" type="Label" parent="objectives_panel"]
 layout_mode = 2
 text = ""
 theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.75, 0.75, 0.8, 1)
