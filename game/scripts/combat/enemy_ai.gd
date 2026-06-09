@@ -33,7 +33,7 @@ func _ready() -> void:
 func _draw() -> void:
 	var tex: Texture2D = AssetLoader.get_enemy_sprite(enemy_id)
 	if tex:
-		draw_texture(tex, -tex.get_width() / 2.0, -tex.get_height() / 2.0)
+		draw_texture(tex, Vector2(-tex.get_width() / 2.0, -tex.get_height() / 2.0))
 		return
 	var s: float = enemy_size
 	var c: Color = enemy_color
@@ -91,10 +91,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _teleport_behind_player() -> void:
-	var behind: Vector2 = player.global_position
 	var dir_to_player: Vector2 = (player.global_position - global_position).normalized()
-	if dir_to_player.length() > 0:
-		behind = player.global_position - dir_to_player * 80.0
+	var behind: Vector2 = player.global_position - dir_to_player * 80.0
 	global_position = behind
 
 func _shoot(direction: Vector2) -> void:
@@ -103,7 +101,9 @@ func _shoot(direction: Vector2) -> void:
 	proj.direction = direction
 	proj.speed = projectile_speed
 	proj.damage = damage
-	get_tree().current_scene.get_node("projectiles").add_child(proj)
+	var proj_container := get_tree().current_scene.get_node_or_null("projectiles")
+	if proj_container:
+		proj_container.add_child(proj)
 
 func take_damage(amount: int) -> void:
 	if current_hp <= 0:

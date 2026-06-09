@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 func _draw() -> void:
 	var tex: Texture2D = AssetLoader.get_boss_sprite("grey_line_conductor")
 	if tex:
-		draw_texture(tex, -tex.get_width() / 2.0, -tex.get_height() / 2.0)
+		draw_texture(tex, Vector2(-tex.get_width() / 2.0, -tex.get_height() / 2.0))
 	else:
 		SpriteDrawer.draw_boss(self, Vector2.ZERO, "grey_line_conductor", 120.0, Time.get_ticks_msec() * 0.001)
 
@@ -86,7 +86,8 @@ func _ticket_punch() -> void:
 	var indicator: ColorRect = ColorRect.new()
 	indicator.color = Color(1, 0, 0, 0.3)
 	indicator.size = Vector2(300, 60)
-	indicator.global_position = global_position - Vector2(150, 30)
+	indicator.pivot_offset = indicator.size / 2.0
+	indicator.global_position = global_position
 	indicator.rotation = dash_dir.angle()
 	get_tree().current_scene.add_child(indicator)
 	is_dashing = true

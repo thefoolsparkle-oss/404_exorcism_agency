@@ -102,8 +102,9 @@ func _process(delta: float) -> void:
 	for skill_id in acquired_skills:
 		var tier: int = acquired_skills[skill_id]
 		var type: String = skill_data[skill_id].type
-		if type != "active_interval" and type != "summon":
-			continue
+		if type != "active_interval":
+			if skill_id != "paper_effigy_decoy":
+				continue
 		if not cooldown_timers.has(skill_id):
 			cooldown_timers[skill_id] = 0.0
 		cooldown_timers[skill_id] -= delta
@@ -255,17 +256,25 @@ func _trigger_incense_ash(data: Dictionary) -> void:
 	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
 	var bosses: Array[Node] = get_tree().get_nodes_in_group("boss")
 	enemies.append_array(bosses)
+	var slowed_enemies: Array = []
 	for enemy in enemies:
 		if not is_instance_valid(enemy):
 			continue
 		if ash.global_position.distance_to(enemy.global_position) < radius:
 			if enemy.has_method("take_damage"):
-				enemy.take_damage(int(data.damage_per_sec * data.duration * whisper_mult))
+				enemy.take_damage(int(data.damage_per_sec * data.interval * whisper_mult) if data.has("interval") else int(data.damage_per_sec * whisper_mult))
 			if enemy.get("move_speed") != null:
+				var orig: float = enemy.move_speed
 				enemy.move_speed *= (1.0 - data.slow)
+				slowed_enemies.append({"enemy": enemy, "speed": orig})
 	var tw: Tween = create_tween()
 	tw.tween_property(ash, "modulate:a", 0.0, data.duration)
 	tw.tween_callback(ash.queue_free)
+	tw.tween_callback(func():
+		for entry in slowed_enemies:
+			if is_instance_valid(entry.enemy):
+				entry.enemy.move_speed = entry.speed
+	)
 
 func _trigger_camera_flash(data: Dictionary) -> void:
 	var flash: ColorRect = ColorRect.new()

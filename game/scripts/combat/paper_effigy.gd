@@ -33,7 +33,9 @@ func _attract_enemies() -> void:
 		if not is_instance_valid(enemy):
 			continue
 		if global_position.distance_to(enemy.global_position) < attract_range:
-			enemy.global_position = enemy.global_position.move_toward(global_position, 80.0)
+			if enemy is CharacterBody2D:
+				enemy.velocity = Vector2.ZERO
+			enemy.global_position = enemy.global_position.move_toward(global_position, 80.0 * delta)
 
 func _on_hit() -> void:
 	_detonate()

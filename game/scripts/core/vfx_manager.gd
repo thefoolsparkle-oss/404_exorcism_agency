@@ -55,7 +55,6 @@ static func screen_shake(intensity: float = 5.0, duration: float = 0.15) -> void
 	if not camera:
 		return
 	var orig_pos: Vector2 = camera.offset
-	var elapsed: float = 0.0
 	var tween: Tween = instance.create_tween()
 	tween.tween_method(func(v):
 		if not is_instance_valid(camera):

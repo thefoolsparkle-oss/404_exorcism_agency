@@ -13,6 +13,7 @@ var char_index: int = 0
 var display_timer: float = 0.0
 var is_typing: bool = true
 var can_advance: bool = false
+var speed_mult: float = 1.0
 
 func show_narrative(title: String, subtitle: String, narrative_lines: Array) -> void:
 	title_label.text = title
@@ -23,6 +24,7 @@ func show_narrative(title: String, subtitle: String, narrative_lines: Array) -> 
 	display_timer = 0.0
 	is_typing = true
 	can_advance = false
+	speed_mult = 1.0
 	text_label.text = ""
 	next_label.visible = false
 	visible = true
@@ -30,8 +32,15 @@ func show_narrative(title: String, subtitle: String, narrative_lines: Array) -> 
 func _process(delta: float) -> void:
 	if not visible:
 		return
+	if Input.is_action_pressed("interact"):
+		speed_mult = 5.0
+	else:
+		speed_mult = 1.0
+	if Input.is_action_just_pressed("skip"):
+		_skip_all()
+		return
 	if is_typing:
-		display_timer += delta
+		display_timer += delta * speed_mult
 		if display_timer > 0.03 and current_line < lines.size():
 			display_timer = 0.0
 			var line: String = lines[current_line]
@@ -42,7 +51,7 @@ func _process(delta: float) -> void:
 				is_typing = false
 				can_advance = true
 				next_label.visible = true
-	if can_advance and Input.is_action_just_pressed("interact"):
+	if can_advance and (Input.is_action_just_pressed("interact") or Input.is_action_just_pressed("skip")):
 		_advance()
 
 func _advance() -> void:
@@ -56,3 +65,7 @@ func _advance() -> void:
 	is_typing = true
 	can_advance = false
 	next_label.visible = false
+
+func _skip_all() -> void:
+	visible = false
+	finished.emit()

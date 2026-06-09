@@ -4,16 +4,29 @@ var save_path: String = "user://save.json"
 var data: Dictionary = {}
 
 func _init() -> void:
-	_save_default()
+	pass
 
 func _ready() -> void:
+	data = {
+		"version": 1,
+		"resources": {"anomaly_essence": 0, "broken_circuit": 0},
+		"completed_cases": [],
+		"unlocked_characters": ["lin_jin", "xu_zhaye", "bai_zhi"],
+		"selected_character": "lin_jin",
+		"permanent_upgrades": {},
+		"prologue_seen": false,
+		"ending_seen": false
+	}
 	_load()
 
 func _load() -> void:
 	if not FileAccess.file_exists(save_path):
-		_save_default()
 		return
 	var file: FileAccess = FileAccess.open(save_path, FileAccess.READ)
+	if file == null:
+		push_error("SaveManager: cannot open save file for reading")
+		_migrate()
+		return
 	var text: String = file.get_as_text()
 	var json: JSON = JSON.new()
 	var error: Error = json.parse(text)
@@ -41,20 +54,11 @@ func _migrate() -> void:
 		if c not in chars:
 			chars.append(c)
 
-func _save_default() -> void:
-	data = {
-		"version": 1,
-		"resources": {"anomaly_essence": 0, "broken_circuit": 0},
-		"completed_cases": [],
-		"unlocked_characters": ["lin_jin", "xu_zhaye", "bai_zhi"],
-		"selected_character": "lin_jin",
-		"permanent_upgrades": {},
-		"prologue_seen": false,
-		"ending_seen": false
-	}
-
 func save() -> void:
 	var file: FileAccess = FileAccess.open(save_path, FileAccess.WRITE)
+	if file == null:
+		push_error("SaveManager: cannot open save file for writing")
+		return
 	file.store_string(JSON.stringify(data, "\t"))
 
 func add_resource(type: String, amount: int) -> void:

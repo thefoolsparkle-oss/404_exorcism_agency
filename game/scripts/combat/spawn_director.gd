@@ -1,7 +1,7 @@
 extends Node2D
 
-@export var spawn_interval_min: float = 3.0
-@export var spawn_interval_max: float = 1.0
+@export var spawn_interval_initial: float = 3.0
+@export var spawn_interval_final: float = 1.0
 @export var ramp_duration: float = 120.0
 @export var boss_spawn_time: float = 120.0
 @export var spawn_area_size: float = 500.0
@@ -24,8 +24,8 @@ func _ready() -> void:
 	enemy_data = DataLoader.load_json("res://data/enemies/enemies.json")
 	current_case = CaseManager.get_current_case()
 	if not current_case.is_empty():
-		spawn_interval_min = current_case.get("spawn_interval_min", spawn_interval_min)
-		spawn_interval_max = current_case.get("spawn_interval_max", spawn_interval_max)
+		spawn_interval_initial = current_case.get("spawn_interval_min", spawn_interval_initial)
+		spawn_interval_final = current_case.get("spawn_interval_max", spawn_interval_final)
 		ramp_duration = current_case.get("ramp_duration", ramp_duration)
 		boss_spawn_time = current_case.get("boss_spawn_time", boss_spawn_time)
 
@@ -47,7 +47,7 @@ func _on_combat_started() -> void:
 	enabled = true
 	game_timer = 0.0
 	timer = 0.0
-	next_spawn = spawn_interval_min
+	next_spawn = spawn_interval_initial
 	boss_spawned = false
 
 func _on_combat_ended(_victory: bool) -> void:
@@ -74,7 +74,7 @@ func _process(delta: float) -> void:
 		timer = 0.0
 		_spawn_enemy()
 		var t: float = min(game_timer / ramp_duration, 1.0)
-		next_spawn = lerp(spawn_interval_min, spawn_interval_max, t)
+		next_spawn = lerp(spawn_interval_initial, spawn_interval_final, t)
 
 func _on_objectives_done() -> void:
 	_spawn_boss()
@@ -117,6 +117,8 @@ func _get_spawn_position() -> Vector2:
 
 func _choose_enemy_type() -> String:
 	var pool: Array = current_case.get("enemy_pool", ["empty_seat_passenger", "reverse_walker", "low_frequency_shade"])
+	if pool.size() == 0:
+		return "empty_seat_passenger"
 	if game_timer < 30:
 		return pool[0] if pool.size() > 0 else "empty_seat_passenger"
 	elif game_timer < 60:
@@ -125,6 +127,8 @@ func _choose_enemy_type() -> String:
 		return pool[randi() % pool.size()]
 
 func _spawn_boss() -> void:
+	if boss_spawned:
+		return
 	boss_spawned = true
 	var boss_id: String = current_case.get("boss_id", "grey_line_conductor")
 	var boss_path: String = "res://scenes/combat/boss/" + boss_id + ".tscn"

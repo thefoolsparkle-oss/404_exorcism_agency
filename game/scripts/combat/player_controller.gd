@@ -21,7 +21,7 @@ func _draw() -> void:
 	var selected: String = SaveManager.data.selected_character
 	var tex: Texture2D = AssetLoader.get_character_sprite(selected)
 	if tex:
-		draw_texture(tex, -tex.get_width() / 2.0, -tex.get_height() / 2.0)
+		draw_texture(tex, Vector2(-tex.get_width() / 2.0, -tex.get_height() / 2.0))
 	else:
 		SpriteDrawer.draw_character(self, Vector2.ZERO, selected, 60.0)
 

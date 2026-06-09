@@ -53,5 +53,7 @@ func _shoot(target: Node2D) -> void:
 		proj.speed = projectile_speed
 		proj.damage = current_damage
 		proj.pierce_remaining = pierce_count
-		get_tree().current_scene.get_node("projectiles").add_child(proj)
+		var proj_container := get_tree().current_scene.get_node_or_null("projectiles")
+		if proj_container:
+			proj_container.add_child(proj)
 	SoundManager.shoot()

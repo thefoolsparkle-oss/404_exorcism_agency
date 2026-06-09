@@ -25,6 +25,8 @@ func _ready() -> void:
 func change_state(new_state: GameState) -> void:
 	current_state = new_state
 	match new_state:
+		GameState.MAIN_MENU, GameState.COMBAT_LOADING:
+			get_tree().paused = false
 		GameState.COMBAT_ACTIVE:
 			get_tree().paused = false
 		GameState.COMBAT_PAUSED:

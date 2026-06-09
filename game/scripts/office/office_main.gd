@@ -23,6 +23,7 @@ func _ready() -> void:
 	_populate_characters()
 	
 	if not SaveManager.data.prologue_seen:
+		await get_tree().create_timer(0.5).timeout
 		_show_prologue()
 	elif _all_grey_line_done() and not SaveManager.data.ending_seen:
 		_show_ending()
@@ -30,20 +31,30 @@ func _ready() -> void:
 func _show_prologue() -> void:
 	var narrative_data: Dictionary = DataLoader.load_json("res://data/narrative/grey_line.json")
 	var prologue: Dictionary = narrative_data.get("prologue", {})
-	narrative.show_narrative(prologue.get("title", ""), prologue.get("subtitle", ""), prologue.get("lines", []))
+	var lines_data: Array[String] = []
+	for l in prologue.get("lines", []):
+		lines_data.append(str(l))
+	narrative.show_narrative(prologue.get("title", ""), prologue.get("subtitle", ""), lines_data)
 
 func _show_ending() -> void:
 	var narrative_data: Dictionary = DataLoader.load_json("res://data/narrative/grey_line.json")
 	var endings: Dictionary = narrative_data.get("case_complete", {})
 	var ending: Dictionary = endings.get("GLM-005", {})
-	narrative.show_narrative(ending.get("title", ""), "", ending.get("lines", []))
+	var lines_data: Array[String] = []
+	for l in ending.get("lines", []):
+		lines_data.append(str(l))
+	narrative.show_narrative(ending.get("title", ""), "", lines_data)
 
 func _on_narrative_finished() -> void:
 	if not SaveManager.data.prologue_seen:
 		SaveManager.data.prologue_seen = true
+		SaveManager.save()
+		if _all_grey_line_done() and not SaveManager.data.ending_seen:
+			_show_ending()
+			return
 	elif _all_grey_line_done() and not SaveManager.data.ending_seen:
 		SaveManager.data.ending_seen = true
-	SaveManager.save()
+		SaveManager.save()
 
 func _all_grey_line_done() -> bool:
 	for i in range(1, 6):

@@ -38,7 +38,12 @@ func _populate_choices() -> void:
 			available_choices.append(skill_id)
 
 	while available_choices.size() < 3 and skills.size() > 0:
-		available_choices.append(skills[randi() % skills.size()])
+		var pick: String = skills[randi() % skills.size()]
+		if pick in available_choices:
+			continue
+		if acquired_skills.has(pick) and acquired_skills[pick] >= skill_data[pick].max_tier:
+			continue
+		available_choices.append(pick)
 
 	for i in range(3):
 		var skill_id: String = available_choices[i]

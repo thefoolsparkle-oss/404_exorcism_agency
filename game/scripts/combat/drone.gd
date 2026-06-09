@@ -32,7 +32,9 @@ func _physics_process(delta: float) -> void:
 			proj.speed = 300.0
 			proj.damage = damage
 			proj.pierce_remaining = 0
-			get_tree().current_scene.get_node("projectiles").add_child(proj)
+			var proj_container := get_tree().current_scene.get_node_or_null("projectiles")
+			if proj_container:
+				proj_container.add_child(proj)
 		attack_timer = attack_interval
 
 func _find_nearest_enemy() -> Node2D:
