@@ -28,6 +28,31 @@ func _ready() -> void:
 	var shape: CircleShape2D = $collision_shape.shape
 	shape.radius = enemy_size / 2.0
 	teleport_timer = teleport_cooldown * 0.5
+	$visual.visible = false
+
+func _draw() -> void:
+	var s: float = enemy_size
+	var c: Color = enemy_color
+	match enemy_id:
+		"shadow_fragment":
+			draw_circle(Vector2.ZERO, s / 2, Color(0.15, 0.05, 0.15, 0.8))
+			draw_circle(Vector2.ZERO, s / 3, Color(0.3, 0.1, 0.3, 0.6))
+		"mirror_clone":
+			draw_rect(Rect2(-s/2, -s/2, s, s), Color(c, 0.6), true)
+			draw_rect(Rect2(-s/3, -s/3, s*2/3, s*2/3), Color.WHITE, false, 1.5)
+		"charmed_passenger":
+			draw_circle(Vector2.ZERO, s / 2, c)
+			draw_arc(Vector2.ZERO, s / 2 + 3, rotation, PI + rotation, 8, Color.WHITE, 1.5)
+		"time_echo":
+			draw_rect(Rect2(-s/2, -s/2, s, s), Color(c, 0.5), true)
+			draw_rect(Rect2(-s/2 + 4, -s/2 + 4, s - 8, s - 8), Color(c, 0.3), true)
+		_:
+			if contact_damage:
+				var pts: PackedVector2Array = [Vector2(0, -s/2), Vector2(-s/2, s/2), Vector2(s/2, s/2)]
+				draw_polygon(pts, [c])
+			else:
+				draw_circle(Vector2.ZERO, s / 2, c)
+				draw_arc(Vector2.ZERO, s / 2 + 2, 0, TAU, 16, Color.WHITE, 1.5)
 
 func set_player_ref(p: CharacterBody2D) -> void:
 	player = p
