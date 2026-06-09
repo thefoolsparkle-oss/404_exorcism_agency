@@ -22,8 +22,24 @@ func _load() -> void:
 	_migrate()
 
 func _migrate() -> void:
+	if not data.has("prologue_seen"):
+		data["prologue_seen"] = false
+	if not data.has("ending_seen"):
+		data["ending_seen"] = false
+	if not data.has("resources"):
+		data["resources"] = {"anomaly_essence": 0, "broken_circuit": 0}
+	if not data.has("completed_cases"):
+		data["completed_cases"] = []
+	if not data.has("unlocked_characters"):
+		data["unlocked_characters"] = ["lin_jin", "xu_zhaye", "bai_zhi"]
 	if "xu_zhaye" not in data.unlocked_characters:
 		data.unlocked_characters.append("xu_zhaye")
+	if "bai_zhi" not in data.unlocked_characters:
+		data.unlocked_characters.append("bai_zhi")
+	if not data.has("selected_character"):
+		data["selected_character"] = "lin_jin"
+	if not data.has("permanent_upgrades"):
+		data["permanent_upgrades"] = {}
 
 func _save_default() -> void:
 	data = {
