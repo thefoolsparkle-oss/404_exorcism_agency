@@ -26,6 +26,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		SoundManager.pickup()
 		body.add_experience(experience_amount)
 		EventBus.experience_collected.emit(experience_amount)
 		queue_free()

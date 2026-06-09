@@ -89,6 +89,7 @@ func take_damage(amount: int) -> void:
 		_die()
 
 func _die() -> void:
+	SoundManager.hit()
 	VFXManager.death_explosion(global_position, Color(enemy_color))
 	EventBus.enemy_killed.emit(enemy_id, global_position)
 	EventBus.experience_dropped.emit(global_position, experience_drop)

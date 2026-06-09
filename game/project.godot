@@ -28,6 +28,7 @@ DataLoader="*res://scripts/core/data_loader.gd"
 CaseManager="*res://scripts/office/case_manager.gd"
 SaveManager="*res://scripts/core/save_manager.gd"
 VFXManager="*res://scripts/core/vfx_manager.gd"
+SoundManager="*res://scripts/core/sound_manager.gd"
 
 [display]
 

@@ -140,6 +140,7 @@ func take_damage(amount: int) -> void:
 		_die()
 
 func _die() -> void:
+	SoundManager.explosion()
 	VFXManager.death_explosion(global_position, Color.RED)
 	VFXManager.screen_shake(12.0, 0.5)
 	EventBus.boss_defeated.emit()
