@@ -8,7 +8,7 @@ var card_scene: PackedScene = preload("res://scenes/ui/case_select_card.tscn")
 func _ready() -> void:
 	visible = false
 	briefing.case_confirmed.connect(func(_id): visible = false)
-	briefing.case_cancelled.connect(func(): visible = false)
+	briefing.case_cancelled.connect(func(): visible = true)
 	_populate()
 
 func _populate() -> void:

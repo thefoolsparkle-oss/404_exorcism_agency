@@ -2,7 +2,6 @@ extends Node2D
 
 var xp_orb_scene: PackedScene = preload("res://scenes/combat/experience_orb.tscn")
 var current_case: Dictionary = {}
-var narrative_scene: PackedScene = preload("res://scenes/ui/narrative_screen.tscn")
 
 @onready var objective_tracker: Node = $objective_tracker
 
@@ -35,21 +34,6 @@ func _on_combat_ended(victory: bool) -> void:
 	SaveManager.add_resource("broken_circuit", threat)
 	SaveManager.complete_case(case_id)
 	SaveManager.save()
-	
-	var narrative_data: Dictionary = DataLoader.load_json("res://data/narrative/grey_line.json")
-	var case_stories: Dictionary = narrative_data.get("case_complete", {})
-	var story: Dictionary = case_stories.get(case_id, {})
-	if story.is_empty():
-		return
-	var narrative: CanvasLayer = narrative_scene.instantiate()
-	narrative.finished.connect(func():
-		EventBus.request_main_menu.emit()
-	)
-	get_tree().current_scene.add_child(narrative)
-	var lines_data: Array[String] = []
-	for l in story.get("lines", []):
-		lines_data.append(str(l))
-	narrative.show_narrative(story.get("title", ""), "", lines_data)
 
 func _grant_starter_skill() -> void:
 	var char_data: Dictionary = DataLoader.load_json("res://data/characters/characters.json")
@@ -85,7 +69,8 @@ func _show_pause_menu() -> void:
 		return
 	get_tree().paused = true
 	EventBus.combat_paused.emit()
-	var popup: AcceptDialog = AcceptDialog.new()
+	var popup: ConfirmationDialog = ConfirmationDialog.new()
+	popup.process_mode = Node.PROCESS_MODE_ALWAYS
 	popup.title = "暂停"
 	popup.dialog_text = "是否返回事务所？"
 	popup.confirmed.connect(func():
@@ -98,6 +83,8 @@ func _show_pause_menu() -> void:
 		EventBus.combat_resumed.emit()
 	)
 	get_tree().current_scene.add_child(popup)
+	popup.get_ok_button().text = "返回事务所"
+	popup.get_cancel_button().text = "继续"
 	popup.popup_centered()
 
 func _on_experience_dropped(position: Vector2, amount: int) -> void:

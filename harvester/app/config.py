@@ -1,6 +1,9 @@
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 
 class Settings(BaseSettings):
+    model_config = ConfigDict(env_file=".env", env_file_encoding="utf-8")
+
     database_url: str = "sqlite:///harvester.db"
     llm_provider: str = "mock"
     llm_api_key: str = ""
@@ -9,9 +12,5 @@ class Settings(BaseSettings):
     export_dir: str = "exports"
     search_api_key: str = ""
     search_engine_id: str = ""
-
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
 settings = Settings()

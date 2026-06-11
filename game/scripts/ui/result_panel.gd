@@ -12,6 +12,8 @@ var final_level: int = 1
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = false
+	restart_btn.text = "重新开始"
+	quit_btn.text = "返回事务所"
 	restart_btn.pressed.connect(_on_restart_pressed)
 	quit_btn.pressed.connect(_on_quit_pressed)
 	EventBus.combat_ended.connect(_on_combat_ended)
@@ -19,17 +21,11 @@ func _ready() -> void:
 	EventBus.player_leveled_up.connect(func(lv): final_level = lv)
 
 func _on_combat_ended(victory: bool) -> void:
-	var case_id: String = CaseManager.get_current_case().get("case_id", "")
-	var has_narrative: bool = case_id.begins_with("GLM-")
-	
 	if victory:
 		title_label.text = "任务完成"
 		title_label.add_theme_color_override("font_color", Color.GREEN)
 		rewards_label.visible = true
-		if has_narrative:
-			rewards_label.text = "按 E 阅读后续"
-		else:
-			rewards_label.text = "案件已完成"
+		rewards_label.text = "案件已归档，剧情记录可在事务所档案库查看。"
 	else:
 		title_label.text = "任务失败"
 		title_label.add_theme_color_override("font_color", Color.RED)
@@ -41,14 +37,10 @@ func _on_combat_ended(victory: bool) -> void:
 		obj_lines.append("")
 		obj_lines.append("目标完成情况:")
 		for i in range(tracker.objectives.size()):
-			var mark: String = "✓" if tracker.is_objective_done(i) else "✗"
+			var mark: String = "完成" if tracker.is_objective_done(i) else "未完成"
 			obj_lines.append("  %s %s" % [mark, tracker.objectives[i].get("text", "")])
 	stats_label.text = "\n".join(obj_lines)
 	visible = true
-	
-	if has_narrative and victory:
-		restart_btn.visible = false
-		quit_btn.visible = false
 
 func _on_restart_pressed() -> void:
 	get_tree().paused = false

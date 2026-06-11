@@ -33,7 +33,8 @@ func _ready() -> void:
 func _draw() -> void:
 	var tex: Texture2D = AssetLoader.get_enemy_sprite(enemy_id)
 	if tex:
-		draw_texture(tex, Vector2(-tex.get_width() / 2.0, -tex.get_height() / 2.0))
+		var draw_size: float = max(enemy_size * 1.8, 48.0)
+		draw_texture_rect(tex, Rect2(Vector2(-draw_size / 2.0, -draw_size * 0.65), Vector2(draw_size, draw_size)), false)
 		return
 	var s: float = enemy_size
 	var c: Color = enemy_color

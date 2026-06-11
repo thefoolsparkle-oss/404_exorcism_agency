@@ -1,6 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 from datetime import datetime
-from typing import Optional
+from typing import Literal, Optional
 
 
 class SourceCreate(BaseModel):
@@ -15,11 +15,10 @@ class SourceCreate(BaseModel):
 
 
 class SourceOut(SourceCreate):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     collected_at: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class MotifCreate(BaseModel):
@@ -35,11 +34,10 @@ class MotifCreate(BaseModel):
 
 
 class MotifOut(MotifCreate):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     created_at: datetime
-
-    class Config:
-        from_attributes = True
 
 
 class Objective(BaseModel):
@@ -53,9 +51,9 @@ class BossMechanic(BaseModel):
     name_cn: str = ""
     name_en: str = ""
     description_cn: str = ""
-    phase_1: list = []
-    phase_2: list = []
-    phase_3: list = []
+    phase_1: list = Field(default_factory=list)
+    phase_2: list = Field(default_factory=list)
+    phase_3: list = Field(default_factory=list)
 
 
 class CaseDraftCreate(BaseModel):
@@ -75,15 +73,14 @@ class CaseDraftCreate(BaseModel):
 
 
 class CaseDraftOut(CaseDraftCreate):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     review_status: str
     created_at: datetime
 
-    class Config:
-        from_attributes = True
-
 
 class ReviewDecision(BaseModel):
     case_id: str
-    decision: str
+    decision: Literal["approved", "rejected", "rewrite_needed", "pending"]
     note: Optional[str] = None

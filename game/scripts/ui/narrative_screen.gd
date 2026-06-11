@@ -12,10 +12,14 @@ var current_line: int = 0
 var char_index: int = 0
 var display_timer: float = 0.0
 var is_typing: bool = true
-var can_advance: bool = false
 var speed_mult: float = 1.0
 
-func show_narrative(title: String, subtitle: String, narrative_lines: Array) -> void:
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	visible = false
+	next_label.text = "E 继续 / Space 跳过"
+
+func show_narrative(title: String, subtitle: String, narrative_lines: Array[String]) -> void:
 	title_label.text = title
 	subtitle_label.text = subtitle
 	lines = narrative_lines
@@ -23,7 +27,6 @@ func show_narrative(title: String, subtitle: String, narrative_lines: Array) -> 
 	char_index = 0
 	display_timer = 0.0
 	is_typing = true
-	can_advance = false
 	speed_mult = 1.0
 	text_label.text = ""
 	next_label.visible = false
@@ -36,10 +39,7 @@ func _process(delta: float) -> void:
 		speed_mult = 5.0
 	else:
 		speed_mult = 1.0
-	if Input.is_action_just_pressed("skip"):
-		_skip_all()
-		return
-	if is_typing:
+	if is_typing and lines.size() > 0:
 		display_timer += delta * speed_mult
 		if display_timer > 0.03 and current_line < lines.size():
 			display_timer = 0.0
@@ -49,23 +49,35 @@ func _process(delta: float) -> void:
 				char_index += 1
 			else:
 				is_typing = false
-				can_advance = true
 				next_label.visible = true
-	if can_advance and (Input.is_action_just_pressed("interact") or Input.is_action_just_pressed("skip")):
+
+func _input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if event.is_action_pressed("skip"):
+		get_viewport().set_input_as_handled()
+		_finish()
+		return
+	if event.is_action_pressed("interact"):
+		get_viewport().set_input_as_handled()
+		if is_typing:
+			is_typing = false
+			next_label.visible = true
+			if current_line < lines.size():
+				text_label.text = lines[current_line]
+			return
 		_advance()
 
 func _advance() -> void:
 	current_line += 1
 	if current_line >= lines.size():
-		visible = false
-		finished.emit()
+		_finish()
 		return
 	text_label.text = ""
 	char_index = 0
 	is_typing = true
-	can_advance = false
 	next_label.visible = false
 
-func _skip_all() -> void:
+func _finish() -> void:
 	visible = false
 	finished.emit()

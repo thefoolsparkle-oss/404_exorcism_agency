@@ -21,7 +21,7 @@ func _draw() -> void:
 	var selected: String = SaveManager.data.selected_character
 	var tex: Texture2D = AssetLoader.get_character_sprite(selected)
 	if tex:
-		draw_texture(tex, Vector2(-tex.get_width() / 2.0, -tex.get_height() / 2.0))
+		draw_texture_rect(tex, Rect2(Vector2(-38, -54), Vector2(76, 108)), false)
 	else:
 		SpriteDrawer.draw_character(self, Vector2.ZERO, selected, 60.0)
 
@@ -31,6 +31,7 @@ func _apply_character_stats() -> void:
 	var stats: Dictionary = char_data.get(selected, {})
 	if stats.is_empty():
 		current_hp = max_hp
+		queue_redraw()
 		return
 	if stats.has("max_hp"):
 		max_hp = stats.max_hp
@@ -52,6 +53,7 @@ func _apply_character_stats() -> void:
 			weapon.attack_range = stats.attack_range
 		if stats.has("projectile_speed"):
 			weapon.projectile_speed = stats.projectile_speed
+	queue_redraw()
 
 func _physics_process(delta: float) -> void:
 	if invincible_timer > 0:

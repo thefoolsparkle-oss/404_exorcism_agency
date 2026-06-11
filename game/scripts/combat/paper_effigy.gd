@@ -21,11 +21,11 @@ func _physics_process(delta: float) -> void:
 	pulse_timer += delta
 	if pulse_timer > 0.8 + age * 0.5:
 		pulse_timer = 0.0
-		_attract_enemies()
+		_attract_enemies(delta)
 	if age >= lifetime:
 		_detonate()
 
-func _attract_enemies() -> void:
+func _attract_enemies(delta: float) -> void:
 	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
 	var bosses: Array[Node] = get_tree().get_nodes_in_group("boss")
 	enemies.append_array(bosses)

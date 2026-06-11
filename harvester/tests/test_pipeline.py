@@ -18,6 +18,9 @@ def test_pipeline_run():
     assert "generated_cases" in data
     assert data["sources_found"] > 0
     assert len(data["generated_cases"]) > 0
+    generated = data["generated_cases"][0]
+    assert generated["case_id"]
+    assert generated["title_cn"]
 
 
 def test_list_cases():
@@ -28,3 +31,8 @@ def test_list_cases():
 def test_export():
     response = client.post("/api/cases/export")
     assert response.status_code == 200
+
+
+def test_review_rejects_invalid_decision():
+    response = client.post("/api/cases/review", json={"case_id": "missing", "decision": "bad"})
+    assert response.status_code == 422

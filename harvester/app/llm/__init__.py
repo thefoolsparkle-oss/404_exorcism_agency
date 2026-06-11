@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+import json
+
 
 class LLMProvider(ABC):
     @abstractmethod
@@ -12,40 +14,164 @@ class MockProvider(LLMProvider):
 
     def chat(self, system_prompt: str, user_prompt: str) -> str:
         self._counter += 1
-        if "提取" in system_prompt or "extract" in system_prompt.lower():
+        prompt = system_prompt.lower()
+        if "extract" in prompt or "提取" in prompt:
             return self._mock_motif()
-        elif "risk" in system_prompt.lower() or "审核" in system_prompt:
+        if "risk" in prompt or "审核" in prompt:
             return self._mock_risk()
-        elif "案件" in system_prompt or "case" in system_prompt.lower() or "generate" in system_prompt.lower():
-            return self._mock_case(user_prompt)
-        elif "改写" in system_prompt or "rewrite" in system_prompt.lower() or "风格" in system_prompt:
+        if "rewrite" in prompt or "改写" in prompt:
             return self._mock_style()
-        return '{"note": "unknown task"}'
+        if "case" in prompt or "generate" in prompt or "案件" in prompt or "生成" in prompt:
+            return self._mock_case()
+        return json.dumps({"note": "unknown task"}, ensure_ascii=False)
 
     def _mock_motif(self) -> str:
         motifs = [
-            '{"location":"废弃地铁站","time_period":"凌晨2-4点","anomaly_type":["空间异常","时间循环"],"core_motif":{"entity":"不存在的列车","rule":"只在特定时间出现","trigger":"注视监控画面"},"taboo_rule":"不要凝视超过30秒","horror_point":"乘客突然转向摄像头","game_potential":"高","suggested_mechanics":["限时收集","躲避视线"]}',
-            '{"location":"旧城区公寓","time_period":"全天","anomaly_type":["空间异常","认知感染"],"core_motif":{"entity":"多余的楼层","rule":"电梯无法到达","trigger":"数窗户时发现"},"taboo_rule":"不要进入该楼层","horror_point":"楼层里的东西","game_potential":"高","suggested_mechanics":["解谜探索","Boss战"]}',
-            '{"location":"任意地点","time_period":"夜晚到日出","anomaly_type":["空间异常","认知感染"],"core_motif":{"entity":"红色门","rule":"随机出现","trigger":"打开门"},"taboo_rule":"不要打开","horror_point":"通往童年住所","game_potential":"中","suggested_mechanics":["随机事件","选择分支"]}',
-            '{"location":"旧公交站","time_period":"雾天夜晚","anomaly_type":["空间异常","规则异常"],"core_motif":{"entity":"幽灵公交44路","rule":"只搭载独行女性","trigger":"在旧站点等车"},"taboo_rule":"女性不要独行","horror_point":"失踪者最后位置","game_potential":"高","suggested_mechanics":["护送NPC","限时逃脱"]}',
-            '{"location":"家中","time_period":"凌晨3点","anomaly_type":["时间异常","预言"],"core_motif":{"entity":"预知收音机","rule":"播放未来灾难预警","trigger":"通电"},"taboo_rule":"不要记录","horror_point":"预警成真","game_potential":"中","suggested_mechanics":["倒计时机制","选择干预"]}',
+            {
+                "location": "灰线地铁站",
+                "time_period": "凌晨 2 点至 4 点",
+                "anomaly_type": ["空间异常", "时间循环"],
+                "core_motif": {
+                    "entity": "不存在的列车",
+                    "rule": "只在特定时间出现在废弃站台",
+                    "trigger": "持续观看监控画面",
+                },
+                "taboo_rule": "不要凝视屏幕超过 30 秒",
+                "horror_point": "录像中的乘客会同时转头看向镜头",
+                "game_potential": "高",
+                "suggested_mechanics": ["限时收集", "躲避视线"],
+            },
+            {
+                "location": "旧城区公寓",
+                "time_period": "全天",
+                "anomaly_type": ["空间异常", "认知感染"],
+                "core_motif": {
+                    "entity": "多余楼层",
+                    "rule": "电梯无法抵达，楼梯会重复折返",
+                    "trigger": "从外部清点窗户",
+                },
+                "taboo_rule": "不要进入不存在于图纸中的楼层",
+                "horror_point": "楼层内传来住户已搬离多年的生活声",
+                "game_potential": "高",
+                "suggested_mechanics": ["解谜探索", "Boss 战"],
+            },
+            {
+                "location": "任意街角",
+                "time_period": "夜晚至日出",
+                "anomaly_type": ["空间异常", "认知感染"],
+                "core_motif": {
+                    "entity": "红色门",
+                    "rule": "随机出现，日出后消失",
+                    "trigger": "打开门把手",
+                },
+                "taboo_rule": "不要打开来源不明的红门",
+                "horror_point": "门后通向进入者童年住处的长廊",
+                "game_potential": "中",
+                "suggested_mechanics": ["随机事件", "选择分支"],
+            },
         ]
-        return motifs[self._counter % len(motifs)]
+        return json.dumps(motifs[self._counter % len(motifs)], ensure_ascii=False)
 
     def _mock_risk(self) -> str:
-        return '{"risk_level":2,"risk_tags":["public_domain","fictional"],"decision":"approved","reason":"公开来源的虚构故事，无版权问题"}'
+        return json.dumps(
+            {
+                "risk_level": 2,
+                "risk_tags": ["public_domain", "fictional"],
+                "decision": "approved",
+                "reason": "仅借用都市传说氛围和结构，不复刻来源文本。",
+            },
+            ensure_ascii=False,
+        )
 
-    def _mock_case(self, user_prompt: str) -> str:
-        i = self._counter % 3
+    def _mock_case(self) -> str:
         cases = [
-            '{"case_id":"GLM-003","title_cn":"多余楼层","title_en":"The Extra Floor","display_name":"多余楼层（The Extra Floor）","district":"旧城区","threat_level":3,"anomaly_type":["空间异常","认知感染"],"briefing":"新沪市旧城区一栋公寓的居民发现了一个奇怪的现象：从外面看，楼有13层，但从里面数，楼梯在7层和8层之间多了一个平台。","objectives":[{"type":"collect","target":"floor_key","count":3,"text":"收集三层楼的钥匙"},{"type":"defeat_boss","target":"floor_guardian","text":"击败楼层守护者"}],"boss_id":"floor_guardian","boss_mechanics":{"name_cn":"楼层守护者","name_en":"Floor Guardian","description_cn":"守护多余楼层的未知存在","phase_1":[{"name":"门板投掷","damage":25,"cooldown":2.0}],"phase_2":[{"name":"空间折叠","damage":20,"cooldown":3.0}],"phase_3":[{"name":"楼层崩塌","damage":40,"cooldown":5.0}]},"reward_items":["old_key","building_pass"],"archive_text":"档案编号 GLM-003：经测量，该建筑外部高度为39.8米，内部楼梯总高度为41.2米。差值1.4米恰好对应一层楼的高度。建筑设计师承认图纸中有无法解释的空白区域，但坚称施工时并未建造。建议低楼层住户暂时搬离。"}',
-            '{"case_id":"GLM-004","title_cn":"红色门","title_en":"The Red Door","display_name":"红色门（The Red Door）","district":"新沪市各区","threat_level":2,"anomaly_type":["空间异常","认知感染"],"briefing":"一扇红色的门随机出现在城市的各个角落。每次都在不同的位置。打开门的人报告说看到了一条通往自己童年住所的长廊。","objectives":[{"type":"collect","target":"door_memory","count":5,"text":"收集五段门的记忆"},{"type":"defeat_boss","target":"door_entity","text":"击败门中之物"}],"boss_id":"door_entity","reward_items":["red_key","memory_shard"],"archive_text":"档案编号 GLM-004：市政记录中不存在匹配该门的建筑许可。所有声称打开过门的人无法再次找到它。值得注意的是，多位目击者描述的童年住所已经不存在（已拆除或改建）。建议市民勿靠近任何不明来源的红色门。"}',
-            '{"case_id":"GLM-005","title_cn":"幽灵公交","title_en":"Ghost Bus Route","display_name":"幽灵公交（Ghost Bus Route）","district":"公交44路沿线","threat_level":4,"anomaly_type":["空间异常","规则异常"],"briefing":"已停运25年的公交44路在雾天重新出现。该车只搭载独行女性，多名失踪者的最后定位均在44路站点附近。","objectives":[{"type":"survive","target":"bus_stop","count":1,"text":"在旧站点存活至公交出现"},{"type":"disable","target":"bus_engine","count":3,"text":"关闭三处发动机异常"},{"type":"defeat_boss","target":"bus_conductor","text":"击败公交售票员"}],"boss_id":"bus_conductor","reward_items":["old_ticket","fog_lantern"],"archive_text":"档案编号 GLM-005：公交44路于1999年因财政原因停运。所有车辆已报废。但在大雾天气，404事务所仍会接到关于该线路的投诉。请勿在雾天独自前往旧44路站点。如果你看到车灯，不要招手。"}',
+            {
+                "case_id": "GLM-003",
+                "title_cn": "多余楼层",
+                "title_en": "The Extra Floor",
+                "display_name": "多余楼层（The Extra Floor）",
+                "district": "旧城区",
+                "threat_level": 3,
+                "anomaly_type": ["空间异常", "认知感染"],
+                "briefing": "新沪市旧城区一栋公寓出现内部楼层数量与外部观测不一致的现象。住户报告夜间可听见来自夹层的脚步声，但楼层登记资料中不存在对应房间。",
+                "objectives": [
+                    {"type": "collect", "target": "floor_key", "count": 3, "text": "收集三枚楼层钥匙"},
+                    {"type": "defeat_boss", "target": "floor_guardian", "count": 1, "text": "击败楼层守护者"},
+                ],
+                "boss_id": "floor_guardian",
+                "boss_mechanics": {
+                    "name_cn": "楼层守护者",
+                    "name_en": "Floor Guardian",
+                    "description_cn": "守护多余楼层的未知实体。",
+                    "phase_1": [{"name": "门板投掷", "damage": 25, "cooldown": 2.0}],
+                    "phase_2": [{"name": "空间折返", "damage": 20, "cooldown": 3.0}],
+                    "phase_3": [{"name": "楼层坍缩", "damage": 40, "cooldown": 5.0}],
+                },
+                "reward_items": ["old_key", "building_pass"],
+                "archive_text": "档案编号 GLM-003：测量结果显示，该建筑外部高度与内部楼梯累计高度存在 1.4 米差值。原设计图中对应位置为空白。建议低楼层住户暂时迁离，现场继续封控。",
+            },
+            {
+                "case_id": "GLM-004",
+                "title_cn": "红色门",
+                "title_en": "The Red Door",
+                "display_name": "红色门（The Red Door）",
+                "district": "新沪市各区",
+                "threat_level": 2,
+                "anomaly_type": ["空间异常", "认知感染"],
+                "briefing": "一扇红门在城市不同角落随机出现。目击者称门后走廊通向自己童年住所。门体在日出后消失，现场不留下安装痕迹。",
+                "objectives": [
+                    {"type": "collect", "target": "door_memory", "count": 5, "text": "收集五段门内记忆"},
+                    {"type": "defeat_boss", "target": "door_entity", "count": 1, "text": "击败门中之物"},
+                ],
+                "boss_id": "door_entity",
+                "boss_mechanics": {
+                    "name_cn": "门中之物",
+                    "name_en": "Door Entity",
+                    "description_cn": "停留在门后长廊中的认知实体。",
+                    "phase_1": [{"name": "记忆回声", "damage": 15, "cooldown": 1.8}],
+                    "phase_2": [{"name": "走廊延展", "damage": 22, "cooldown": 3.0}],
+                    "phase_3": [],
+                },
+                "reward_items": ["red_key", "memory_shard"],
+                "archive_text": "档案编号 GLM-004：市政记录中不存在与该红门匹配的建筑许可。所有目击者均无法再次找到同一位置。建议市民不要靠近来源不明的红色门体。",
+            },
+            {
+                "case_id": "GLM-005",
+                "title_cn": "幽灵公交",
+                "title_en": "Ghost Bus Route",
+                "display_name": "幽灵公交（Ghost Bus Route）",
+                "district": "公交 44 路沿线",
+                "threat_level": 4,
+                "anomaly_type": ["空间异常", "规则异常"],
+                "briefing": "已停运多年的 44 路公交在浓雾天气重新出现。车辆仅在旧站点停靠，多名失踪者最后定位均在该线路附近。",
+                "objectives": [
+                    {"type": "survive", "target": "bus_stop", "count": 1, "text": "在旧站点存活至公交出现"},
+                    {"type": "disable", "target": "bus_engine", "count": 3, "text": "关闭三处发动机异常"},
+                    {"type": "defeat_boss", "target": "bus_conductor", "count": 1, "text": "击败公交售票员"},
+                ],
+                "boss_id": "bus_conductor",
+                "boss_mechanics": {
+                    "name_cn": "公交售票员",
+                    "name_en": "Bus Conductor",
+                    "description_cn": "维持幽灵公交运行规则的实体。",
+                    "phase_1": [{"name": "撕票", "damage": 18, "cooldown": 1.5}],
+                    "phase_2": [{"name": "雾灯召回", "damage": 24, "cooldown": 3.2}],
+                    "phase_3": [{"name": "末班车碾压", "damage": 45, "cooldown": 6.0}],
+                },
+                "reward_items": ["old_ticket", "fog_lantern"],
+                "archive_text": "档案编号 GLM-005：44 路公交于 1999 年停运，车辆均已报废。浓雾天气中仍有市民报告看到线路号。建议暂停相关旧站点夜间通行。",
+            },
         ]
-        return cases[i]
+        return json.dumps(cases[self._counter % len(cases)], ensure_ascii=False)
 
     def _mock_style(self) -> str:
-        return '{"briefing":"已改写完成。","archive_text":"已改写完成。"}'
+        return json.dumps(
+            {
+                "briefing": "文本已按内部档案语气改写，保留可执行目标与异常规则。",
+                "archive_text": "记录已完成归档，后续观察重点为异常触发条件与复发现象。",
+            },
+            ensure_ascii=False,
+        )
 
 
 class OpenAIProvider(LLMProvider):
@@ -56,6 +182,7 @@ class OpenAIProvider(LLMProvider):
 
     def chat(self, system_prompt: str, user_prompt: str) -> str:
         import httpx
+
         resp = httpx.post(
             f"{self.base_url}/chat/completions",
             headers={"Authorization": f"Bearer {self.api_key}"},

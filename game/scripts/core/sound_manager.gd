@@ -20,41 +20,17 @@ func pickup() -> void: pickup_player.play()
 func boss() -> void: boss_player.play()
 
 func _make_pcm(data: PackedByteArray, name: String) -> AudioStreamPlayer:
-	var header: PackedByteArray = _make_wav_header(data.size())
 	var stream: AudioStreamWAV = AudioStreamWAV.new()
 	stream.format = AudioStreamWAV.FORMAT_16_BITS
 	stream.mix_rate = 44100
 	stream.stereo = false
-	stream.data = header + data
+	stream.data = data
 	var p: AudioStreamPlayer = AudioStreamPlayer.new()
 	p.name = name
 	p.stream = stream
 	p.volume_db = -6.0
 	add_child(p)
 	return p
-
-func _make_wav_header(data_size: int) -> PackedByteArray:
-	var header: PackedByteArray
-	var sample_rate: int = 44100
-	var bits_per_sample: int = 16
-	var channels: int = 1
-	var byte_rate: int = sample_rate * channels * bits_per_sample / 8
-	var block_align: int = channels * bits_per_sample / 8
-	var chunk_size: int = 36 + data_size
-	header.append_array("RIFF".to_utf8_buffer())
-	header.append(chunk_size & 0xFF); header.append((chunk_size >> 8) & 0xFF); header.append((chunk_size >> 16) & 0xFF); header.append((chunk_size >> 24) & 0xFF)
-	header.append_array("WAVE".to_utf8_buffer())
-	header.append_array("fmt ".to_utf8_buffer())
-	header.append(16); header.append(0); header.append(0); header.append(0)
-	header.append(1); header.append(0)
-	header.append(channels & 0xFF); header.append((channels >> 8) & 0xFF)
-	header.append(sample_rate & 0xFF); header.append((sample_rate >> 8) & 0xFF); header.append((sample_rate >> 16) & 0xFF); header.append((sample_rate >> 24) & 0xFF)
-	header.append(byte_rate & 0xFF); header.append((byte_rate >> 8) & 0xFF); header.append((byte_rate >> 16) & 0xFF); header.append((byte_rate >> 24) & 0xFF)
-	header.append(block_align & 0xFF); header.append((block_align >> 8) & 0xFF)
-	header.append(bits_per_sample & 0xFF); header.append((bits_per_sample >> 8) & 0xFF)
-	header.append_array("data".to_utf8_buffer())
-	header.append(data_size & 0xFF); header.append((data_size >> 8) & 0xFF); header.append((data_size >> 16) & 0xFF); header.append((data_size >> 24) & 0xFF)
-	return header
 
 func _gen_hit_pcm() -> PackedByteArray:
 	var out: PackedByteArray

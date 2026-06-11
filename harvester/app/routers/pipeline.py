@@ -65,6 +65,8 @@ def run_pipeline(query: str = "urban legend subway", db: Session = Depends(get_d
         rewritten = rewriter.rewrite(case_data)
         if "error" in rewritten:
             rewritten = case_data
+        else:
+            rewritten = {**case_data, **rewritten}
 
         case_id = rewritten.get("case_id", f"AUTO-{source.id:04d}")
         draft = CaseDraft(

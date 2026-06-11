@@ -105,6 +105,7 @@ func _spawn_enemy() -> void:
 	enemy.set_player_ref(player)
 
 	enemies_container.add_child(enemy)
+	enemy.queue_redraw()
 	EventBus.enemy_spawned.emit(enemy)
 
 func _get_spawn_position() -> Vector2:

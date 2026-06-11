@@ -4,6 +4,7 @@
 *.translation
 export/
 export_presets.cfg
+game/tests/*.txt
 
 # Python
 __pycache__/

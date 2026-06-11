@@ -5,8 +5,10 @@ from app.config import settings
 engine = create_engine(settings.database_url, echo=False, connect_args={"check_same_thread": False} if "sqlite" in settings.database_url else {})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
+_initialized = False
 
 def get_db():
+    init_db()
     db = SessionLocal()
     try:
         yield db
@@ -14,5 +16,9 @@ def get_db():
         db.close()
 
 def init_db():
+    global _initialized
+    if _initialized:
+        return
     from app import models
     Base.metadata.create_all(bind=engine)
+    _initialized = True

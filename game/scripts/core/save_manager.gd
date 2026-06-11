@@ -8,14 +8,15 @@ func _init() -> void:
 
 func _ready() -> void:
 	data = {
-		"version": 1,
+		"version": 2,
 		"resources": {"anomaly_essence": 0, "broken_circuit": 0},
 		"completed_cases": [],
 		"unlocked_characters": ["lin_jin", "xu_zhaye", "bai_zhi"],
 		"selected_character": "lin_jin",
 		"permanent_upgrades": {},
 		"prologue_seen": false,
-		"ending_seen": false
+		"ending_seen": false,
+		"seen_case_stories": []
 	}
 	_load()
 
@@ -35,10 +36,15 @@ func _load() -> void:
 	_migrate()
 
 func _migrate() -> void:
+	if int(data.get("version", 1)) < 2:
+		data["prologue_seen"] = false
+		data["version"] = 2
 	if not data.has("prologue_seen"):
 		data["prologue_seen"] = false
 	if not data.has("ending_seen"):
 		data["ending_seen"] = false
+	if not data.has("seen_case_stories"):
+		data["seen_case_stories"] = []
 	if not data.has("resources"):
 		data["resources"] = {"anomaly_essence": 0, "broken_circuit": 0}
 	if not data.has("completed_cases"):
