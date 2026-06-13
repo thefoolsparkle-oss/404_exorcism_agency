@@ -68,5 +68,47 @@
     "name_en": "Old News Clip",
     "description_cn": "每30秒获得一个持续5秒的护盾",
     "effect": {"shield_interval": 30.0, "shield_duration": 5.0}
+  },
+  "old_lantern": {
+    "id": "old_lantern",
+    "name_cn": "旧油灯",
+    "name_en": "Old Oil Lantern",
+    "description_cn": "最大生命值 +30, 经验获取 +15%",
+    "effect": {"max_hp_bonus": 30, "xp_mult": 1.15}
+  },
+  "talisman_bundle": {
+    "id": "talisman_bundle",
+    "name_cn": "符纸扎",
+    "name_en": "Talisman Bundle",
+    "description_cn": "攻击力 +20%, 穿透 +1",
+    "effect": {"damage_mult": 1.20, "pierce_bonus": 1}
+  },
+  "cracked_bowl": {
+    "id": "cracked_bowl",
+    "name_cn": "破碗",
+    "name_en": "Cracked Bowl",
+    "description_cn": "最大生命值 +40",
+    "effect": {"max_hp_bonus": 40}
+  },
+  "silk_thread": {
+    "id": "silk_thread",
+    "name_cn": "红丝线",
+    "name_en": "Red Silk Thread",
+    "description_cn": "移动速度 +12%, 经验获取 +10%",
+    "effect": {"speed_mult": 1.12, "xp_mult": 1.10}
+  },
+  "wooden_fish": {
+    "id": "wooden_fish",
+    "name_cn": "木鱼",
+    "name_en": "Wooden Fish",
+    "description_cn": "攻击力 +30%",
+    "effect": {"damage_mult": 1.30}
+  },
+  "incense_burner": {
+    "id": "incense_burner",
+    "name_cn": "铜香炉",
+    "name_en": "Bronze Incense Burner",
+    "description_cn": "最大生命值 +20, 移动速度 +10%",
+    "effect": {"max_hp_bonus": 20, "speed_mult": 1.10}
   }
 }

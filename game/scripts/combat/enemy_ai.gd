@@ -51,6 +51,27 @@ func _draw() -> void:
 		"time_echo":
 			draw_rect(Rect2(-s/2, -s/2, s, s), Color(c, 0.5), true)
 			draw_rect(Rect2(-s/2 + 4, -s/2 + 4, s - 8, s - 8), Color(c, 0.3), true)
+		"paper_bird":
+			var pts: PackedVector2Array = [Vector2(0, -s/2), Vector2(s/3, s/6), Vector2(0, 0), Vector2(-s/3, s/6)]
+			draw_polygon(pts, [Color.WHITE, Color.WHITE, Color.WHITE, Color.WHITE])
+			draw_circle(Vector2(0, -s/4), s/12, Color(0, 0, 0, 0.6))
+		"alley_cat":
+			draw_circle(Vector2(0, 0), s/2.5, Color(c, 0.7))
+			draw_circle(Vector2(s/5, -s/6), s/8, Color.DARK_GREEN)
+			draw_circle(Vector2(-s/5, -s/6), s/8, Color.DARK_GREEN)
+			draw_circle(Vector2(s/5, -s/6), s/16, Color.BLACK)
+			draw_circle(Vector2(-s/5, -s/6), s/16, Color.BLACK)
+		"incense_doll":
+			draw_rect(Rect2(-s/3, -s/3, s*2/3, s*2/3), Color.WHITE_SMOKE, true)
+			draw_rect(Rect2(-s/4, -s/4, s/2, s/2), Color(c), true)
+			draw_circle(Vector2(0, -s/6), s/10, Color(0.8, 0.2, 0.2))
+			draw_circle(Vector2(-s/5, -s/4), s/14, Color.BLACK)
+			draw_circle(Vector2(s/5, -s/4), s/14, Color.BLACK)
+		"night_walker":
+			draw_rect(Rect2(-s/3, -s/2, s*2/3, s), Color(c, 0.85), true)
+			draw_circle(Vector2(0, -s/3), s/6, Color(c, 0.5))
+			draw_circle(Vector2(-s/6, -s/3), s/16, Color.RED)
+			draw_circle(Vector2(s/6, -s/3), s/16, Color.RED)
 		_:
 			if contact_damage:
 				var pts: PackedVector2Array = [Vector2(0, -s/2), Vector2(-s/2, s/2), Vector2(s/2, s/2)]

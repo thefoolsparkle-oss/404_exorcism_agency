@@ -75,5 +75,82 @@
     "spawn_interval_min": 2.5, "spawn_interval_max": 1.2, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
     "reward_items": ["reversed_pocket_watch", "old_news_clip"],
     "archive_text": "逆行列车首次检测在1997年灰线事故当天——35名乘客失踪。不要在逆行列车经过时查看时间。"
+  },
+  "OCT-001": {
+    "case_id": "OCT-001", "title_cn": "旧巷回声", "title_en": "Old Alley Echoes",
+    "display_name": "旧巷回声", "district": "老城区", "threat_level": 1,
+    "anomaly_type": ["音频异常", "空间异常"],
+    "briefing": "老城区居民反映，每天子夜时分明清老巷中传来旧时商贩叫卖声和小儿嬉戏声。前去察看空无一人。某户人家门口连续三天出现相同的纸鸟。",
+    "objectives": [
+      {"type": "collect", "target": "paper_offer", "count": 2, "text": "收集异常纸供品"},
+      {"type": "disable", "target": "echo_point", "count": 2, "text": "封印回声节点"},
+      {"type": "defeat_boss", "target": "alley_resonance", "text": "消除巷中回响"}
+    ],
+    "boss_id": "grey_line_conductor", "boss_stats": {"max_hp": 200, "move_speed": 55, "contact_damage": 12},
+    "enemy_pool": ["paper_bird", "alley_cat"],
+    "spawn_interval_min": 4.0, "spawn_interval_max": 2.2, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
+    "reward_items": ["old_lantern", "talisman_bundle"],
+    "archive_text": "经音频分析，旧巷回声的频率在人类听觉范围外携带数位信息，疑似1943年失踪的本地商贩口述记录。"
+  },
+  "OCT-002": {
+    "case_id": "OCT-002", "title_cn": "纸人铺", "title_en": "The Paper Doll Shop",
+    "display_name": "纸人铺", "district": "老城区", "threat_level": 2,
+    "anomaly_type": ["认知感染", "空间异常"],
+    "briefing": "老城区一条从地图上消失的巷子里出现一间纸扎铺。门前四盏从未点燃的灯笼。进入铺内的人出来后总多一段不属于自己的记忆。",
+    "objectives": [
+      {"type": "collect", "target": "memory_paper", "count": 3, "text": "收集记忆纸人"},
+      {"type": "defeat_boss", "target": "shop_keeper", "text": "驱散纸铺主人"}
+    ],
+    "boss_id": "grey_line_conductor", "boss_stats": {"max_hp": 300, "move_speed": 65, "contact_damage": 18},
+    "enemy_pool": ["paper_bird", "incense_doll", "alley_cat"],
+    "spawn_interval_min": 3.2, "spawn_interval_max": 1.9, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
+    "reward_items": ["cracked_bowl", "incense_burner"],
+    "archive_text": "纸人铺在1987年、1997年、2007年分别被不同人目击于不同巷子。所有目击者均提到「第四个灯笼」。"
+  },
+  "OCT-003": {
+    "case_id": "OCT-003", "title_cn": "镜花水月", "title_en": "Mirror Flower Water Moon",
+    "display_name": "镜花水月", "district": "老城区", "threat_level": 2,
+    "anomaly_type": ["空间异常", "认知感染"],
+    "briefing": "老城区一口无名古井每周满月之夜映照出不同的倒影。看过倒影的人开始分不清自己和映射。井底传出不存在的流水声。",
+    "objectives": [
+      {"type": "disable", "target": "moon_mirror", "count": 3, "text": "打碎满月镜面"},
+      {"type": "collect", "target": "well_water", "count": 2, "text": "采集井水样本"},
+      {"type": "defeat_boss", "target": "well_dweller", "text": "驱散井中住户"}
+    ],
+    "boss_id": "grey_line_conductor", "boss_stats": {"max_hp": 350, "move_speed": 75, "contact_damage": 20},
+    "enemy_pool": ["incense_doll", "night_walker"],
+    "spawn_interval_min": 3.0, "spawn_interval_max": 1.7, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
+    "reward_items": ["silk_thread", "talisman_bundle"],
+    "archive_text": "井水分析结果：液体中含有1803年本地丝绸业鼎盛期特有的矿物成分。井建于1975年。"
+  },
+  "OCT-004": {
+    "case_id": "OCT-004", "title_cn": "夜香", "title_en": "Night Incense",
+    "display_name": "夜香", "district": "老城区", "threat_level": 3,
+    "anomaly_type": ["认知感染", "音频异常"],
+    "briefing": "老城区西片居民连续三周凌晨3:00闻到浓郁的线香味。香源不明，所有电子设备在香气范围中自动关机。被香味笼罩超过三分钟者会主动走向老城门。",
+    "objectives": [
+      {"type": "disable", "target": "incense_source", "count": 4, "text": "掐灭线香源头"},
+      {"type": "defeat_boss", "target": "scent_weaver", "text": "驱散香气编织者"}
+    ],
+    "boss_id": "grey_line_conductor", "boss_stats": {"max_hp": 450, "move_speed": 85, "contact_damage": 22},
+    "enemy_pool": ["incense_doll", "night_walker", "paper_bird"],
+    "spawn_interval_min": 2.6, "spawn_interval_max": 1.4, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
+    "reward_items": ["incense_burner", "wooden_fish"],
+    "archive_text": "线香化学成分不属于任何已知植物。分子结构呈现左旋手性，与生物体内氨基酸相反。"
+  },
+  "OCT-005": {
+    "case_id": "OCT-005", "title_cn": "午夜戏台", "title_en": "Midnight Stage",
+    "display_name": "午夜戏台", "district": "老城区", "threat_level": 4,
+    "anomaly_type": ["时间异常", "认知感染"],
+    "briefing": "老城中心一座1960年代拆除的戏台每逢农历十五重现。台上演同一出失传剧目。看完全剧的观众声称自己不会再有下一世。剧场四周没有出口。",
+    "objectives": [
+      {"type": "collect", "target": "script_page", "count": 3, "text": "收集散落的剧本页"},
+      {"type": "defeat_boss", "target": "stage_master", "text": "终结无终之剧"}
+    ],
+    "boss_id": "grey_line_conductor", "boss_stats": {"max_hp": 550, "move_speed": 110, "contact_damage": 28},
+    "enemy_pool": ["night_walker", "incense_doll", "alley_cat"],
+    "spawn_interval_min": 2.2, "spawn_interval_max": 1.1, "ramp_duration": 120.0, "boss_spawn_time": 9999.0,
+    "reward_items": ["silk_thread", "old_lantern", "wooden_fish"],
+    "archive_text": "失传剧目《无终记》考据：剧本完成于1943年，演出1931年。观众席设置52座，其中11座始终由无人票占据。"
   }
 }

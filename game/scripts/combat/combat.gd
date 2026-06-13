@@ -16,6 +16,9 @@ func _ready() -> void:
 	_apply_character_passive()
 	EventBus.combat_started.emit()
 
+	SoundManager.start_ambient()
+	SoundManager.start_music()
+
 func _on_enemy_killed(_type: String, _pos: Vector2) -> void:
 	var player = $entities/player
 	if player and player.has_lifesteal:
@@ -34,6 +37,22 @@ func _on_combat_ended(victory: bool) -> void:
 	SaveManager.add_resource("broken_circuit", threat)
 	SaveManager.complete_case(case_id)
 	SaveManager.save()
+
+	var narrative_data: Dictionary = DataLoader.load_json("res://data/narrative/grey_line.json")
+	var case_stories: Dictionary = narrative_data.get("case_complete", {})
+	var story: Dictionary = case_stories.get(case_id, {})
+	if not story.is_empty():
+		var narrative: CanvasLayer = narrative_scene.instantiate()
+		narrative.finished.connect(func():
+			EventBus.request_main_menu.emit()
+		)
+		get_tree().current_scene.add_child(narrative)
+		var lines_data: Array[String] = []
+		for l in story.get("lines", []):
+			lines_data.append(str(l))
+		narrative.show_narrative(story.get("title", ""), "", lines_data)
+		SoundManager.stop_ambient()
+		SoundManager.stop_music()
 
 func _grant_starter_skill() -> void:
 	var char_data: Dictionary = DataLoader.load_json("res://data/characters/characters.json")

@@ -152,6 +152,7 @@ func _trigger_chain_lightning(data: Dictionary) -> void:
 		current_pos = enemy.global_position
 		bounced += 1
 	_draw_chain_vfx(player.global_position, hit_set)
+	SoundManager.lightning()
 
 func _draw_chain_vfx(origin: Vector2, targets: Array) -> void:
 	var prev: Vector2 = origin
@@ -176,6 +177,7 @@ func _trigger_thunder_ring(data: Dictionary) -> void:
 		if player.global_position.distance_to(enemy.global_position) <= data.radius:
 			if enemy.has_method("take_damage"):
 				enemy.take_damage(data.damage * whisper_mult)
+	SoundManager.lightning()
 	var ring: ColorRect = ColorRect.new()
 	ring.color = Color(1.0, 0.8, 0.2, 0.4)
 	ring.size = Vector2(data.radius * 2, data.radius * 2)
@@ -184,7 +186,8 @@ func _trigger_thunder_ring(data: Dictionary) -> void:
 	get_tree().current_scene.get_node("ui_layer").add_child(ring)
 	var tw: Tween = create_tween()
 	tw.tween_property(ring, "modulate:a", 0.0, 0.4)
-	tw.tween_callback(ring.queue_free)
+		tw.tween_callback(ring.queue_free)
+	SoundManager.lightning()
 
 func _trigger_shield(data: Dictionary) -> void:
 	player.invincible = true
@@ -202,6 +205,7 @@ func _trigger_shield(data: Dictionary) -> void:
 		player.invincible_timer = 0.0
 		shield.queue_free()
 	)
+	SoundManager.shield()
 
 func _trigger_data_lightning(data: Dictionary) -> void:
 	var enemies: Array[Node] = get_tree().get_nodes_in_group("enemy")
@@ -227,6 +231,7 @@ func _trigger_data_lightning(data: Dictionary) -> void:
 		var tw: Tween = create_tween()
 		tw.tween_property(bolt, "modulate:a", 0.0, 0.25)
 		tw.tween_callback(bolt.queue_free)
+	SoundManager.lightning()
 
 func _trigger_black_iris(data: Dictionary) -> void:
 	var bosses: Array[Node] = get_tree().get_nodes_in_group("boss")
@@ -275,6 +280,7 @@ func _trigger_incense_ash(data: Dictionary) -> void:
 			if is_instance_valid(entry.enemy):
 				entry.enemy.move_speed = entry.speed
 	)
+	SoundManager.ash()
 
 func _trigger_camera_flash(data: Dictionary) -> void:
 	var flash: ColorRect = ColorRect.new()
@@ -297,6 +303,7 @@ func _trigger_camera_flash(data: Dictionary) -> void:
 	var tw: Tween = create_tween()
 	tw.tween_property(flash, "modulate:a", 0.0, 0.3)
 	tw.tween_callback(flash.queue_free)
+	SoundManager.camera_flash()
 	await get_tree().create_timer(data.blind_duration).timeout
 	for entry in slowed_enemies:
 		if is_instance_valid(entry.enemy):

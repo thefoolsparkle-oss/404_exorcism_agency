@@ -156,5 +156,6 @@ func _spawn_boss() -> void:
 			boss.contact_damage = boss_stats.contact_damage
 		enemies_container.add_child(boss)
 		SoundManager.boss()
+		SoundManager.start_boss_music()
 		VFXManager.boss_spawn_effect(boss.global_position)
 		EventBus.boss_spawned.emit()

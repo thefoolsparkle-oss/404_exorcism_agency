@@ -41,5 +41,30 @@
     "hp": 22, "move_speed": 140.0, "damage": 10,
     "contact_damage": true, "attack_range": 0, "attack_cooldown": 0.0,
     "projectile_speed": 0, "experience_drop": 12, "size": 24, "color": "cyan"
+  },
+  "paper_bird": {
+    "id": "paper_bird", "name_cn": "纸鸟", "name_en": "Paper Bird",
+    "hp": 18, "move_speed": 160.0, "damage": 8,
+    "contact_damage": true, "attack_range": 0, "attack_cooldown": 0.0,
+    "projectile_speed": 0, "experience_drop": 8, "size": 20, "color": "ivory"
+  },
+  "alley_cat": {
+    "id": "alley_cat", "name_cn": "巷猫", "name_en": "Alley Cat",
+    "hp": 28, "move_speed": 130.0, "damage": 14,
+    "contact_damage": true, "attack_range": 0, "attack_cooldown": 0.0,
+    "projectile_speed": 0, "experience_drop": 16, "size": 28, "color": "olive",
+    "special": "teleport", "teleport_cooldown": 3.5
+  },
+  "incense_doll": {
+    "id": "incense_doll", "name_cn": "香炉娃娃", "name_en": "Incense Doll",
+    "hp": 32, "move_speed": 60.0, "damage": 16,
+    "contact_damage": false, "attack_range": 450.0, "attack_cooldown": 1.8,
+    "projectile_speed": 180.0, "experience_drop": 20, "size": 26, "color": "sandybrown"
+  },
+  "night_walker": {
+    "id": "night_walker", "name_cn": "夜行人", "name_en": "Night Walker",
+    "hp": 55, "move_speed": 80.0, "damage": 20,
+    "contact_damage": true, "attack_range": 0, "attack_cooldown": 0.0,
+    "projectile_speed": 0, "experience_drop": 25, "size": 38, "color": "midnightblue"
   }
 }

@@ -90,6 +90,7 @@ func add_experience(amount: int) -> void:
 		experience -= experience_to_next
 		level += 1
 		experience_to_next = _calculate_xp_for_level(level)
+		SoundManager.levelup()
 		EventBus.request_pause.emit()
 		EventBus.player_leveled_up.emit(level)
 
