@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss/reverse_conductor.gd" id="1_boss"]
+
+[sub_resource type="CircleShape2D" id="Circle_boss_body"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="Circle_boss_hit"]
+radius = 55.0
+
+[node name="ReverseConductor" type="CharacterBody2D" groups=["boss"]]
+script = ExtResource("1_boss")
+
+[node name="sprite" type="Node2D" parent="."]
+
+[node name="visual" type="ColorRect" parent="."]
+color = Color(0.15, 0.6, 0.65, 1)
+size = Vector2(100, 100)
+position = Vector2(-50, -50)
+visible = false
+
+[node name="collision_shape" type="CollisionShape2D" parent="."]
+shape = SubResource("Circle_boss_body")
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="hitbox_collision" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("Circle_boss_hit")
+
+[node name="boss_hp_bar" type="ProgressBar" parent="."]
+offset_top = -65.0
+offset_left = -80.0
+size = Vector2(160, 16)
+show_percentage = false
+
+[node name="boss_label" type="Label" parent="."]
+offset_top = -82.0
+offset_left = -80.0
+size = Vector2(160, 16)
+text = "BOSS"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 0.3, 0.2, 1)

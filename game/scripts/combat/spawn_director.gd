@@ -146,6 +146,7 @@ func _spawn_boss() -> void:
 		boss.global_position.y = clamp(boss.global_position.y, 100, 2060)
 		if boss.has_method("set_player_ref"):
 			boss.set_player_ref(player)
+		boss.set("boss_id", boss_id)
 		var boss_stats: Dictionary = current_case.get("boss_stats", {})
 		if boss_stats.has("max_hp"):
 			boss.max_hp = boss_stats.max_hp
